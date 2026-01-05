@@ -10,7 +10,10 @@ export default async function UserList(params) {
     <ul className={styles.userList}>
       {userList.results.map((post) => (
         <li key={post.login.uuid} className={styles.userListItem}>
-          <Link href={`/${post.email}`} style={{ textDecoration: 'none', width: '100%' }}>
+          <Link
+            href={`/${post.login.uuid}`}
+            style={{ textDecoration: "none", width: "100%" }}
+          >
             <div className={styles.userItem}>
               <Image
                 src={post.picture.large}
