@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
-import UserList from "../components/userList";
+import UserList from "@/components/userList";
 
 export default async function Home() {
   return (
