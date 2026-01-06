@@ -1,4 +1,5 @@
 import Image from "next/image";
+import getImage from "../../utils/utils";
 
 export default async function UserDetailsPage({ params }) {
   const { id } = await params;
@@ -34,7 +35,7 @@ export default async function UserDetailsPage({ params }) {
         }}
       >
         <Image
-          src={user.picture.large}
+          src={getImage(user.name.first)}
           alt={`${user.name.first} ${user.name.last}`}
           width={100}
           height={100}

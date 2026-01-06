@@ -1,10 +1,13 @@
 import Image from "next/image";
 import styles from "../app/page.module.css";
 import Link from "next/link";
+import getImage from "../utils/utils";
 
 export default async function UserList(params) {
   const data = await fetch("https://randomuser.me/api/?results=50");
   const userList = await data.json();
+  const myBlurDataURL =
+    "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAwDdDFKbAAAAAElFTkSuQmCC";
 
   return (
     <ul className={styles.userList}>
@@ -16,20 +19,20 @@ export default async function UserList(params) {
           >
             <div className={styles.userItem}>
               <Image
-                src={post.picture.large}
+                src={getImage(post.name.first)}
                 alt={`${post.name.first} ${post.name.last}`}
                 width={56}
                 height={56}
+                placeholder="blur"
+                blurDataURL={myBlurDataURL}
                 className={styles.avatar}
               />
-
               <div className={styles.userInfo}>
                 <span className={styles.userName}>
                   {post.name.title}. {post.name.first} {post.name.last}
                 </span>
                 <span className={styles.userEmail}>{post.email}</span>
               </div>
-
               <Image
                 src="/phone.svg"
                 alt="Phone icon"
