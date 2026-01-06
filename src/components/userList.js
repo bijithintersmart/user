@@ -20,7 +20,6 @@ export default async function UserList(params) {
                 alt={`${post.name.first} ${post.name.last}`}
                 width={56}
                 height={56}
-                unoptimized
                 className={styles.avatar}
               />
 

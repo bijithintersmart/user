@@ -25,7 +25,6 @@ export default async function UserDetailsPage({ params }) {
           src={user.picture.large}
           alt={`${user.name.first} ${user.name.last}`}
           width={100}
-          unoptimized
           height={100}
           style={{ borderRadius: "50%", marginRight: "20px" }}
         />
