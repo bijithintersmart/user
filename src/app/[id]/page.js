@@ -17,9 +17,21 @@ export default async function UserDetailsPage({ params }) {
   }
 
   return (
-    <div style={{ padding: "20px" }}>
+    <div
+      style={{
+        padding: "20px",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <div
-        style={{ display: "flex", alignItems: "center", marginBottom: "20px" }}
+        style={{
+          display: "flex",
+          alignItems: "start",
+          marginBottom: "20px",
+          textAlign: "start",
+        }}
       >
         <Image
           src={user.picture.large}
@@ -28,7 +40,7 @@ export default async function UserDetailsPage({ params }) {
           height={100}
           style={{ borderRadius: "50%", marginRight: "20px" }}
         />
-        <div>
+        <div style={{ textAlign: "start" }}>
           <h1>
             {user.name.title}. {user.name.first} {user.name.last}
           </h1>
@@ -44,7 +56,7 @@ export default async function UserDetailsPage({ params }) {
         </div>
       </div>
 
-      <div>
+      <div style={{ textAlign: "start", maxWidth: "400px", width: "100%" }}>
         <h2>Location</h2>
         <p>
           {user.location.street.number} {user.location.street.name}
@@ -55,7 +67,7 @@ export default async function UserDetailsPage({ params }) {
         <p>{user.location.country}</p>
       </div>
 
-      <div>
+      <div style={{ textAlign: "start", maxWidth: "400px", width: "100%" }}>
         <h2>Additional Info</h2>
         <p>
           <strong>Gender:</strong> {user.gender}
