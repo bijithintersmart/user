@@ -2,10 +2,10 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import UserList from "@/components/userList";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import AddUserButton from "@/components/AddUserButton";
 export default async function Home() {
   return (
     <div className={styles.page}>
-      <SpeedInsights />
       <main className={styles.main}>
         <div className={styles.intro}>
           <h1>Random User Directory</h1>
@@ -16,6 +16,7 @@ export default async function Home() {
             results may differ each time.
           </p>
         </div>
+        <AddUserButton />
         <UserList />
         <SpeedInsights />
       </main>
