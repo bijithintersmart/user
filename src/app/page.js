@@ -17,6 +17,7 @@ export default async function Home() {
           </p>
         </div>
         <UserList />
+        <SpeedInsights />
       </main>
     </div>
   );
