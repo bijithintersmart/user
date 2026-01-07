@@ -1,10 +1,11 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 import UserList from "@/components/userList";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 export default async function Home() {
   return (
     <div className={styles.page}>
+      <SpeedInsights />
       <main className={styles.main}>
         <div className={styles.intro}>
           <h1>Random User Directory</h1>
