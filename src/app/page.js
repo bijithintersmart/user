@@ -17,6 +17,7 @@ export default async function Home() {
           </p>
         </div>
         <AddUserButton />
+        <AddUserButton path={"/form"} title={"Contact US"} />
         <UserList />
         <SpeedInsights />
       </main>
