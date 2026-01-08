@@ -2,19 +2,53 @@
 
 import styles from "@/app/page.module.css";
 import { useState } from "react";
-import Image from "next/image";
-import getImage from "@/utils/utils";
+import ViewSubmittedForm from "./components/ViewForm";
+import AlertDialog from "./components/AleartDialog";
+
 export default function FormSection() {
   const [fromMap, setFormMap] = useState(null);
 
+  const [formValues, setFormValues] = useState({
+    fname: "",
+    lname: "",
+    fage: "",
+    fphone: "",
+    femail: "",
+    fcolor: "#FFFFFF",
+    flocation: "",
+    fpincode: "",
+  });
+  const [dialog, setDialog] = useState({
+    open: false,
+    message: "",
+  });
   async function createUserData(formData) {
+    const age = formData.get("fage");
+    const pincode = formData.get("fpincode");
+
+    if (formValues.fage.length > 2) {
+      setDialog({
+        open: true,
+        message: "Age must be exactly 2 digits",
+      });
+      return;
+    }
+
+    if (formValues.fpincode.length > 6) {
+      setDialog({
+        open: true,
+        message: "Pincode must be exactly 6 digits",
+      });
+      return;
+    }
+
     const rawFormData = {
       firstName: formData.get("fname"),
       LastName: formData.get("lname"),
       email: formData.get("femail"),
       color: formData.get("fcolor"),
-      age: formData.get("fage"),
-      pincode: formData.get("fpincode"),
+      age: age,
+      pincode: pincode,
       location: formData.get("flocation"),
       phone: formData.get("fphone"),
     };
@@ -35,197 +69,123 @@ export default function FormSection() {
                 : "This page will let you submit a form with different details and showcase your selected or input data in a neat formatted way"}
             </p>
             {fromMap ? (
-              <div className={styles.userDetailsContainer}>
-                <div
-                  className={styles.userHeader}
-                  style={{
-                    backgroundColor: fromMap.color + "20",
-                    borderLeft: `5px solid ${fromMap.color}`,
-                  }}
-                >
-                  <div className={styles.avatarContainer}>
-                    <Image
-                      src={getImage(fromMap.firstName)}
-                      alt={`${fromMap.firstName.charAt(0)} ${fromMap.LastName}`}
-                      width={86}
-                      height={86}
-                      className={styles.avatar}
-                    />
-                  </div>
-                  <div className={styles.userInfo}>
-                    <h1
-                      className={styles.userName}
-                    >{`${fromMap.firstName} ${fromMap.LastName}`}</h1>
-                    <div className={styles.userContact}>
-                      <div className={styles.contactItem}>
-                        <span className={styles.contactIcon}>📧</span>
-                        <span className={styles.contactText}>
-                          {fromMap.email}
-                        </span>
-                      </div>
-                      <div className={styles.contactItem}>
-                        <span className={styles.contactIcon}>🎂</span>
-                        <span className={styles.contactText}>
-                          Age: {fromMap.age}
-                        </span>
-                      </div>
-                      <div className={styles.contactItem}>
-                        <span className={styles.contactIcon}>📱</span>
-                        <span className={styles.contactText}>
-                          {fromMap.phone}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className={styles.userDetailsGrid}>
-                  <div className={styles.detailCard}>
-                    <h3 className={styles.detailTitle}>
-                      <span className={styles.detailIcon}>👤</span> Personal
-                      Information
-                    </h3>
-                    <div className={styles.detailContent}>
-                      <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>First Name:</span>
-                        <span className={styles.infoValue}>
-                          {fromMap.firstName}
-                        </span>
-                      </div>
-                      <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>Last Name:</span>
-                        <span className={styles.infoValue}>
-                          {fromMap.LastName}
-                        </span>
-                      </div>
-                      <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>Age:</span>
-                        <span className={styles.infoValue}>{fromMap.age}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={styles.detailCard}>
-                    <h3 className={styles.detailTitle}>
-                      <span className={styles.detailIcon}>🎨</span> Preferences
-                    </h3>
-                    <div className={styles.detailContent}>
-                      <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>
-                          Favorite Color:
-                        </span>
-                        <div
-                          className={styles.infoValue}
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            gap: "8px",
-                          }}
-                        >
-                          <div
-                            style={{
-                              width: "20px",
-                              height: "20px",
-                              backgroundColor: fromMap.color,
-                              borderRadius: "4px",
-                              border: "1px solid #ddd",
-                            }}
-                          />
-                          <span>{fromMap.color}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={styles.detailCard}>
-                    <h3 className={styles.detailTitle}>
-                      <span className={styles.detailIcon}>📍</span> Location
-                      Details
-                    </h3>
-                    <div className={styles.detailContent}>
-                      <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>Location:</span>
-                        <span className={styles.infoValue}>
-                          {fromMap.location}
-                        </span>
-                      </div>
-                      <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>Pincode:</span>
-                        <span className={styles.infoValue}>
-                          {fromMap.pincode}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className={styles.detailCard}>
-                    <h3 className={styles.detailTitle}>
-                      <span className={styles.detailIcon}>✉️</span> Contact
-                      Details
-                    </h3>
-                    <div className={styles.detailContent}>
-                      <div className={styles.infoRow}>
-                        <span className={styles.infoLabel}>Email:</span>
-                        <span className={styles.infoValue}>
-                          {fromMap.email}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div style={{ textAlign: "center", marginTop: "30px" }}>
-                  <button
-                    className={styles.buttonclass}
-                    onClick={() => setFormMap(null)}
-                    style={{ backgroundColor: "#6b7280" }}
-                  >
-                    Submit Another Form
-                  </button>
-                </div>
-              </div>
+              <ViewSubmittedForm
+                fromMap={fromMap}
+                onBack={() => setFormMap(null)}
+              />
             ) : (
               <form action={createUserData} className={styles.formSection}>
                 <FormBuilder
                   id={"fname"}
                   labelName="First Name"
+                  value={formValues.fname}
                   type={"text"}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
                 />
-                <FormBuilder id={"lname"} labelName="Last Name" type={"text"} />
-                <FormBuilder id={"fage"} labelName="Age" type={"number"} />
-                <FormBuilder id={"fphone"} labelName="Phone" type={"number"} />
-                <FormBuilder id={"femail"} labelName="Email" type={"email"} />
+                <FormBuilder
+                  id={"lname"}
+                  value={formValues.lname}
+                  labelName="Last Name"
+                  type={"text"}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
+                />
+                <FormBuilder
+                  id={"fage"}
+                  value={formValues.fage}
+                  labelName="Age"
+                  type={"number"}
+                  maxLength={2}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
+                />
+                <FormBuilder
+                  id={"fphone"}
+                  value={formValues.fphone}
+                  labelName="Phone"
+                  type={"number"}
+                  maxLength={10}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
+                />
+                <FormBuilder
+                  id={"femail"}
+                  value={formValues.femail}
+                  labelName="Email"
+                  type={"email"}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
+                />
                 <FormBuilder
                   id={"fcolor"}
+                  value={formValues.fcolor}
                   labelName="Favorite Color"
                   type={"color"}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
                 />
                 <FormBuilder
                   id={"flocation"}
+                  value={formValues.flocation}
                   labelName="Location"
                   type={"text"}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
                 />
                 <FormBuilder
                   id={"fpincode"}
                   labelName="Pincode"
                   type={"number"}
+                  value={formValues.fpincode}
                   maxLength={6}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
                 />
                 <button type="submit">Submit</button>
               </form>
             )}
           </div>
+          <AlertDialog
+            open={dialog.open}
+            message={dialog.message}
+            onClose={() => setDialog({ open: false, message: "" })}
+          />
         </main>
       </div>
     </>
   );
 }
+function FormBuilder({ id, labelName, type, value, onChange, maxLength }) {
+  const isNumeric = ["fage", "fpincode", "fphone"].includes(id);
 
-function FormBuilder({ id, labelName, type, maxLength }) {
   return (
     <div className={styles.formField}>
       <label htmlFor={id}>{labelName}</label>
-      <input name={id} id={id} type={type} maxLength={`${maxLength}`} />
+      <input
+        id={id}
+        name={id}
+        type={type}
+        value={value}
+        maxLength={maxLength}
+        inputMode={isNumeric ? "numeric" : undefined}
+        pattern={isNumeric ? "[0-9]*" : undefined}
+        onChange={(e) => {
+          let val = e.target.value;
+          if (isNumeric) {
+            val = val.replace(/\D/g, "");
+          }
+          onChange(id, val);
+        }}
+      />
     </div>
   );
 }
