@@ -1,9 +1,26 @@
-import Image from "next/image";
+"use client";
+
+import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import UserList from "@/components/userList";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import AddUserButton from "@/components/AddUserButton";
-export default async function Home() {
+import FormDropDownBuilder from "@/components/FormDropDownBuilder";
+
+export default function Home() {
+  const [imageType, setImageType] = useState("Identicon");
+
+  useEffect(() => {
+    const savedImageType = localStorage.getItem("imageType") || "Identicon";
+    setImageType(savedImageType);
+  }, []);
+
+  const handleImageTypeChange = (id, val) => {
+    setImageType(val);
+    localStorage.setItem("imageType", val);
+    window.dispatchEvent(new Event("storage"));
+  };
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -18,6 +35,43 @@ export default async function Home() {
         </div>
         <AddUserButton />
         <AddUserButton path={"/form"} title={"Contact US"} />
+        <FormDropDownBuilder
+          id={"imageType"}
+          onChange={handleImageTypeChange}
+          labelName={"Profile Image Model"}
+          items={[
+            "Adventurer",
+            "Adventurer Neutral",
+            "Avataaars",
+            "Avataaars Neutral",
+            "Big Ears",
+            "Big Ears Neutral",
+            "Big Smile",
+            "Bottts",
+            "Bottts Neutral",
+            "Croodles",
+            "Croodles Neutral",
+            "Dylan",
+            "Fun Emoji",
+            "Glass",
+            "Icons",
+            "Identicon",
+            "Lorelei",
+            "Lorelei Neutral",
+            "Micah",
+            "Miniavs",
+            "Notionists",
+            "Notionists Neutral",
+            "Open Peeps",
+            "Personas",
+            "Pixel Art",
+            "Pixel Art Neutral",
+            "Rings",
+            "Shapes",
+            "Thumbs",
+          ]}
+          value={imageType}
+        />
         <UserList />
         <SpeedInsights />
       </main>

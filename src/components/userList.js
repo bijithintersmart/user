@@ -1,18 +1,59 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
 import getImage from "@/utils/utils";
 import generateRandomHexColor from "@/utils/RandomColor";
 
-export default async function UserList() {
-  const data = await fetch("https://randomuser.me/api/?results=50");
-  const userList = await data.json();
+export default function UserList() {
+  const [imageType, setImageType] = useState("Identicon");
+  const [userList, setUserList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const myBlurDataURL =
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAwDdDFKbAAAAAElFTkSuQmCC";
 
+  useEffect(() => {
+    // Get image type from localStorage
+    const savedImageType = localStorage.getItem("imageType") || "Identicon";
+    setImageType(savedImageType);
+
+    // Fetch user data
+    async function fetchUsers() {
+      try {
+        const data = await fetch("https://randomuser.me/api/?results=50");
+        const result = await data.json();
+        setUserList(result.results);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUsers();
+  }, []);
+
+  // Update image type when localStorage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedImageType = localStorage.getItem("imageType") || "Identicon";
+      setImageType(savedImageType);
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <ul className={styles.userList}>
-      {userList.results.map((post) => (
+      {userList.map((post) => (
         <li key={post.login.uuid} className={styles.userListItem}>
           <Link
             href={`/${post.login.uuid}`}
@@ -27,6 +68,7 @@ export default async function UserList() {
                   backgroundColor: [
                     generateRandomHexColor().replaceAll("#", ""),
                   ],
+                  imageType: imageType,
                 })}
                 alt={`${post.name.first} ${post.name.last}`}
                 width={56}

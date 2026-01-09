@@ -4,7 +4,7 @@ import styles from "@/app/page.module.css";
 import { useState } from "react";
 import ViewSubmittedForm from "./components/ViewForm";
 import AlertDialog from "./components/AleartDialog";
-
+import { FormInputBuilder, FormDropDownBuilder } from "./components/FormComponents";
 export default function FormSection() {
   const [fromMap, setFormMap] = useState(null);
 
@@ -173,51 +173,5 @@ export default function FormSection() {
         </main>
       </div>
     </>
-  );
-}
-
-function FormDropDownBuilder({ id, labelName, value, onChange, items }) {
-  return (
-    <div className={styles.formField}>
-      <label htmlFor={id}>{labelName}:</label>
-      <select
-        name={labelName}
-        id={id}
-        onChange={(e) => {
-          let val = e.target.value;
-          onChange(id, val);
-        }}
-      >
-        {items.map((e) => (
-          <option value={e}>{e}</option>
-        ))}
-      </select>
-    </div>
-  );
-}
-
-function FormInputBuilder({ id, labelName, type, value, onChange, maxLength }) {
-  const isNumeric = ["fage", "fpincode", "fphone"].includes(id);
-
-  return (
-    <div className={styles.formField}>
-      <label htmlFor={id}>{labelName}</label>
-      <input
-        id={id}
-        name={id}
-        type={type}
-        value={value}
-        maxLength={maxLength}
-        inputMode={isNumeric ? "numeric" : undefined}
-        pattern={isNumeric ? "[0-9]*" : undefined}
-        onChange={(e) => {
-          let val = e.target.value;
-          if (isNumeric) {
-            val = val.replace(/\D/g, "");
-          }
-          onChange(id, val);
-        }}
-      />
-    </div>
   );
 }

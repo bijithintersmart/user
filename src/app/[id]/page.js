@@ -1,15 +1,57 @@
+"use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "@/app/page.module.css";
 import generateRandomHexColor from "@/utils/RandomColor";
 import getImage from "@/utils/utils";
 
-export default async function UserDetailsPage({ params }) {
-  const { id } = await params;
+export default function UserDetailsPage({ params }) {
+  const { id } = params;
+  const [user, setUser] = useState(null);
+  const [imageType, setImageType] = useState("Identicon");
+  const [loading, setLoading] = useState(true);
 
-  const response = await fetch(`https://randomuser.me/api/?uuid=${id}`);
-  const data = await response.json();
+  useEffect(() => {
+    const savedImageType = localStorage.getItem("imageType") || "Identicon";
+    setImageType(savedImageType);
+    async function fetchUser() {
+      try {
+        const response = await fetch(`https://randomuser.me/api/?uuid=${id}`);
+        const data = await response.json();
+        const userData =
+          data.results && data.results.length > 0 ? data.results[0] : null;
+        setUser(userData);
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
 
-  const user = data.results && data.results.length > 0 ? data.results[0] : null;
+    fetchUser();
+  }, [id]);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const savedImageType = localStorage.getItem("imageType") || "Identicon";
+      setImageType(savedImageType);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
+  }, []);
+
+  if (loading) {
+    return (
+      <div className={styles.page}>
+        <main className={styles.main}>
+          <div className={styles.intro}>
+            <h2>Loading...</h2>
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   if (!user) {
     return (
@@ -37,6 +79,7 @@ export default async function UserDetailsPage({ params }) {
                   backgroundColor: [
                     generateRandomHexColor().replaceAll("#", ""),
                   ],
+                  imageType: imageType,
                 })}
                 alt={`${user.name.first} ${user.name.last}`}
                 width={180}
