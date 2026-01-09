@@ -13,6 +13,10 @@
   text-align: center;
   margin-bottom: 2rem;
   animation: headerFadeIn 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
 }
 
 .gameHeader h1 {
@@ -27,6 +31,7 @@
   background-size: 200% 200%;
   animation: gradientText 3s ease infinite;
 }
+
 
 .gameInstructions {
   font-size: 1.1rem;

@@ -1,7 +1,10 @@
 "use client";
+import FormDropDownBuilder from "@/components/FormDropDownBuilder";
 import { useGameStore } from "../../state/GameState";
 import Board from "./components/Board";
+import GameModeSelector from "./components/GameModeSelector";
 import styles from "./page.module.css";
+import { ToastContainer } from "react-toastify";
 
 export default function Game() {
   const history = useGameStore((state) => state.history);
@@ -10,6 +13,8 @@ export default function Game() {
   const setCurrentMove = useGameStore((state) => state.setCurrentMove);
   const resetGame = useGameStore((state) => state.resetGame);
   const undoGame = useGameStore((state) => state.undoGame);
+  const setGameMode = useGameStore((state) => state.setGameMode);
+  const currentGameMode = useGameStore((state) => state.gameMode);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -22,11 +27,21 @@ export default function Game() {
   function jumpTo(nextMove) {
     setCurrentMove(nextMove);
   }
+  function handleGameModeChange(id, val) {
+    setGameMode(val);
+  }
 
   return (
     <div className={styles.gameContainer}>
       <div className={styles.gameHeader}>
         <h1>Tic Tac Toe</h1>
+        <GameModeSelector
+          labelName={"Game Mode"}
+          id={"gameMode"}
+          value={currentGameMode}
+          onChange={handleGameModeChange}
+          items={["single", "multi"]}
+        />
         <p className={styles.gameInstructions}>
           Take turns placing X and O on the board. The first player to get 3 in
           a row wins!
@@ -36,6 +51,7 @@ export default function Game() {
         <div className={styles.boardSection}>
           <Board
             xIsNext={xIsNext}
+            autoPlay={currentGameMode === "single" && !xIsNext}
             squares={currentSquares}
             onPlay={handlePlay}
             onReset={resetGame}
@@ -69,6 +85,7 @@ export default function Game() {
           </ol>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }

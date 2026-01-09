@@ -1,8 +1,11 @@
 import Square from "./square";
 import styles from "./Board.module.css";
+import { useEffect } from "react";
+import { toast, Slide } from "react-toastify";
 
 export default function Board({
   xIsNext,
+  autoPlay,
   squares,
   onPlay,
   onReset,
@@ -34,7 +37,27 @@ export default function Board({
     handleClick(emptyItems[randomIndex]);
   }
 
-  console.log(`squire :${squares}`);
+  function disableUserInteraction() {
+    toast.error("🤔Please wait computer is thinking!", {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Slide,
+    });
+  }
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (autoPlay && !xIsNext) {
+        pickARandomSpot();
+      }
+    }, 3000);
+  }, squares);
 
   return (
     <div className={styles.boardContainer}>
@@ -55,7 +78,11 @@ export default function Board({
           <Square
             key={`square-${i}`}
             value={squares[i]}
-            onSquareClick={() => handleClick(i)}
+            onSquareClick={
+              autoPlay && !xIsNext
+                ? disableUserInteraction
+                : () => handleClick(i)
+            }
           />
         ))}
       </div>

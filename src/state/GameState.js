@@ -6,6 +6,7 @@ export const useGameStore = create(
     {
       history: [Array(9).fill(null)],
       currentMove: 0,
+      gameMode: "single",
     },
     (set, get) => {
       return {
@@ -29,6 +30,11 @@ export const useGameStore = create(
           set(() => ({
             history: [Array(9).fill(null)],
             currentMove: 0,
+          }));
+        },
+        setGameMode: (newGameMode) => {
+          set(() => ({
+            gameMode: newGameMode,
           }));
         },
         undoGame: () => {
