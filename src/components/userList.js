@@ -48,7 +48,24 @@ export default function UserList() {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '200px',
+        padding: '40px 0'
+      }}>
+        <div style={{
+          width: '50px',
+          height: '50px',
+          borderRadius: '50%',
+          border: '4px solid rgba(59, 130, 246, 0.2)',
+          borderTop: '4px solid #3b82f6',
+          animation: 'spin 1s linear infinite'
+        }}></div>
+      </div>
+    );
   }
 
   return (

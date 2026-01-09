@@ -33,45 +33,51 @@ export default function Home() {
             results may differ each time.
           </p>
         </div>
-        <AddUserButton />
-        <AddUserButton path={"/form"} title={"Contact US"} />
-        <FormDropDownBuilder
-          id={"imageType"}
-          onChange={handleImageTypeChange}
-          labelName={"Profile Image Model"}
-          items={[
-            "Adventurer",
-            "Adventurer Neutral",
-            "Avataaars",
-            "Avataaars Neutral",
-            "Big Ears",
-            "Big Ears Neutral",
-            "Big Smile",
-            "Bottts",
-            "Bottts Neutral",
-            "Croodles",
-            "Croodles Neutral",
-            "Dylan",
-            "Fun Emoji",
-            "Glass",
-            "Icons",
-            "Identicon",
-            "Lorelei",
-            "Lorelei Neutral",
-            "Micah",
-            "Miniavs",
-            "Notionists",
-            "Notionists Neutral",
-            "Open Peeps",
-            "Personas",
-            "Pixel Art",
-            "Pixel Art Neutral",
-            "Rings",
-            "Shapes",
-            "Thumbs",
-          ]}
-          value={imageType}
-        />
+        <div className={styles.controlsContainer}>
+          <div className={styles.controlsRow}>
+            <AddUserButton />
+            <AddUserButton path={"/form"} title={"Contact US"} />
+          </div>
+          <div className={styles.dropdownContainer}>
+            <FormDropDownBuilder
+              id={"imageType"}
+              onChange={handleImageTypeChange}
+              labelName={"Profile Image Model"}
+              items={[
+                "Adventurer",
+                "Adventurer Neutral",
+                "Avataaars",
+                "Avataaars Neutral",
+                "Big Ears",
+                "Big Ears Neutral",
+                "Big Smile",
+                "Bottts",
+                "Bottts Neutral",
+                "Croodles",
+                "Croodles Neutral",
+                "Dylan",
+                "Fun Emoji",
+                "Glass",
+                "Icons",
+                "Identicon",
+                "Lorelei",
+                "Lorelei Neutral",
+                "Micah",
+                "Miniavs",
+                "Notionists",
+                "Notionists Neutral",
+                "Open Peeps",
+                "Personas",
+                "Pixel Art",
+                "Pixel Art Neutral",
+                "Rings",
+                "Shapes",
+                "Thumbs",
+              ]}
+              value={imageType}
+            />
+          </div>
+        </div>
         <UserList />
         <SpeedInsights />
       </main>
