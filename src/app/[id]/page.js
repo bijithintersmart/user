@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "@/app/page.module.css";
-import getImage from "../../utils/utils";
+import generateRandomHexColor from "@/utils/RandomColor";
+import getImage from "@/utils/utils";
 
 export default async function UserDetailsPage({ params }) {
   const { id } = await params;
@@ -29,7 +30,14 @@ export default async function UserDetailsPage({ params }) {
           <div className={styles.userHeader}>
             <div className={styles.avatarContainer}>
               <Image
-                src={getImage(user.name.first)}
+                src={getImage({
+                  name: user.name.first,
+                  flip: user.dob.age % 2 === 0,
+                  size: 100,
+                  backgroundColor: [
+                    generateRandomHexColor().replaceAll("#", ""),
+                  ],
+                })}
                 alt={`${user.name.first} ${user.name.last}`}
                 width={180}
                 height={180}
@@ -63,8 +71,13 @@ export default async function UserDetailsPage({ params }) {
                 <span className={styles.detailIcon}>📍</span> Location
               </h3>
               <div className={styles.detailContent}>
-                <p>{user.location.street.number} {user.location.street.name}</p>
-                <p>{user.location.city}, {user.location.state} {user.location.postcode}</p>
+                <p>
+                  {user.location.street.number} {user.location.street.name}
+                </p>
+                <p>
+                  {user.location.city}, {user.location.state}{" "}
+                  {user.location.postcode}
+                </p>
                 <p>{user.location.country}</p>
               </div>
             </div>
@@ -84,11 +97,15 @@ export default async function UserDetailsPage({ params }) {
                 </div>
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>Birth Date:</span>
-                  <span className={styles.infoValue}>{new Date(user.dob.date).toLocaleDateString()}</span>
+                  <span className={styles.infoValue}>
+                    {new Date(user.dob.date).toLocaleDateString()}
+                  </span>
                 </div>
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>Registered:</span>
-                  <span className={styles.infoValue}>{new Date(user.registered.date).toLocaleDateString()}</span>
+                  <span className={styles.infoValue}>
+                    {new Date(user.registered.date).toLocaleDateString()}
+                  </span>
                 </div>
               </div>
             </div>
@@ -104,11 +121,15 @@ export default async function UserDetailsPage({ params }) {
                 </div>
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>Username:</span>
-                  <span className={styles.infoValue}>{user.login.username}</span>
+                  <span className={styles.infoValue}>
+                    {user.login.username}
+                  </span>
                 </div>
                 <div className={styles.infoRow}>
                   <span className={styles.infoLabel}>Timezone:</span>
-                  <span className={styles.infoValue}>{user.location.timezone.description}</span>
+                  <span className={styles.infoValue}>
+                    {user.location.timezone.description}
+                  </span>
                 </div>
               </div>
             </div>

@@ -17,6 +17,7 @@ export default function FormSection() {
     fcolor: "#FFFFFF",
     flocation: "",
     fpincode: "",
+    fgender: "",
   });
   const [dialog, setDialog] = useState({
     open: false,
@@ -51,6 +52,7 @@ export default function FormSection() {
       pincode: pincode,
       location: formData.get("flocation"),
       phone: formData.get("fphone"),
+      gender: formData.get("fgender"),
     };
     setFormMap(rawFormData);
   }
@@ -75,7 +77,7 @@ export default function FormSection() {
               />
             ) : (
               <form action={createUserData} className={styles.formSection}>
-                <FormBuilder
+                <FormInputBuilder
                   id={"fname"}
                   labelName="First Name"
                   value={formValues.fname}
@@ -84,7 +86,7 @@ export default function FormSection() {
                     setFormValues((p) => ({ ...p, [id]: val }))
                   }
                 />
-                <FormBuilder
+                <FormInputBuilder
                   id={"lname"}
                   value={formValues.lname}
                   labelName="Last Name"
@@ -93,7 +95,7 @@ export default function FormSection() {
                     setFormValues((p) => ({ ...p, [id]: val }))
                   }
                 />
-                <FormBuilder
+                <FormInputBuilder
                   id={"fage"}
                   value={formValues.fage}
                   labelName="Age"
@@ -103,7 +105,7 @@ export default function FormSection() {
                     setFormValues((p) => ({ ...p, [id]: val }))
                   }
                 />
-                <FormBuilder
+                <FormInputBuilder
                   id={"fphone"}
                   value={formValues.fphone}
                   labelName="Phone"
@@ -113,7 +115,16 @@ export default function FormSection() {
                     setFormValues((p) => ({ ...p, [id]: val }))
                   }
                 />
-                <FormBuilder
+                <FormDropDownBuilder
+                  id={"fgender"}
+                  value={formValues.fgender}
+                  labelName="Gender"
+                  items={["Male", "Female", "Others"]}
+                  onChange={(id, val) =>
+                    setFormValues((p) => ({ ...p, [id]: val }))
+                  }
+                />
+                <FormInputBuilder
                   id={"femail"}
                   value={formValues.femail}
                   labelName="Email"
@@ -122,7 +133,7 @@ export default function FormSection() {
                     setFormValues((p) => ({ ...p, [id]: val }))
                   }
                 />
-                <FormBuilder
+                <FormInputBuilder
                   id={"fcolor"}
                   value={formValues.fcolor}
                   labelName="Favorite Color"
@@ -131,7 +142,7 @@ export default function FormSection() {
                     setFormValues((p) => ({ ...p, [id]: val }))
                   }
                 />
-                <FormBuilder
+                <FormInputBuilder
                   id={"flocation"}
                   value={formValues.flocation}
                   labelName="Location"
@@ -140,7 +151,7 @@ export default function FormSection() {
                     setFormValues((p) => ({ ...p, [id]: val }))
                   }
                 />
-                <FormBuilder
+                <FormInputBuilder
                   id={"fpincode"}
                   labelName="Pincode"
                   type={"number"}
@@ -164,7 +175,28 @@ export default function FormSection() {
     </>
   );
 }
-function FormBuilder({ id, labelName, type, value, onChange, maxLength }) {
+
+function FormDropDownBuilder({ id, labelName, value, onChange, items }) {
+  return (
+    <div className={styles.formField}>
+      <label htmlFor={id}>{labelName}:</label>
+      <select
+        name={labelName}
+        id={id}
+        onChange={(e) => {
+          let val = e.target.value;
+          onChange(id, val);
+        }}
+      >
+        {items.map((e) => (
+          <option value={e}>{e}</option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+function FormInputBuilder({ id, labelName, type, value, onChange, maxLength }) {
   const isNumeric = ["fage", "fpincode", "fphone"].includes(id);
 
   return (

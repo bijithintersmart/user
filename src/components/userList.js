@@ -1,9 +1,10 @@
 import Image from "next/image";
-import styles from "../app/page.module.css";
+import styles from "@/app/page.module.css";
 import Link from "next/link";
-import getImage from "../utils/utils";
+import getImage from "@/utils/utils";
+import generateRandomHexColor from "@/utils/RandomColor";
 
-export default async function UserList(params) {
+export default async function UserList() {
   const data = await fetch("https://randomuser.me/api/?results=50");
   const userList = await data.json();
   const myBlurDataURL =
@@ -19,7 +20,14 @@ export default async function UserList(params) {
           >
             <div className={styles.userItem}>
               <Image
-                src={getImage(post.name.first)}
+                src={getImage({
+                  name: post.name.first,
+                  flip: post.dob.age % 2 === 0,
+                  size: 100,
+                  backgroundColor: [
+                    generateRandomHexColor().replaceAll("#", ""),
+                  ],
+                })}
                 alt={`${post.name.first} ${post.name.last}`}
                 width={56}
                 height={56}
