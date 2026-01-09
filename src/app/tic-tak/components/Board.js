@@ -1,5 +1,5 @@
-import Square from './square'
-import styles from './Board.module.css';
+import Square from "./square";
+import styles from "./Board.module.css";
 
 export default function Board({
   xIsNext,
@@ -20,6 +20,21 @@ export default function Board({
     nextSquares[i] = player;
     onPlay(nextSquares);
   }
+
+  function pickARandomSpot() {
+    const emptyItems = [];
+    for (let i = 0; i < squares.length; i++) {
+      console.log(typeof squares[i]);
+      if (squares[i] == null) {
+        emptyItems.push(i);
+      }
+    }
+    if (emptyItems.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * emptyItems.length);
+    handleClick(emptyItems[randomIndex]);
+  }
+
+  console.log(`squire :${squares}`);
 
   return (
     <div className={styles.boardContainer}>
@@ -44,7 +59,6 @@ export default function Board({
           />
         ))}
       </div>
-      {/* Show button group only when game is still ongoing */}
       {!winner && turns > 0 ? (
         <div className={styles.buttonGroup}>
           <button className={styles.resetButton} onClick={onReset}>
@@ -56,6 +70,13 @@ export default function Board({
             disabled={squares.every((square) => !square)}
           >
             Undo Move
+          </button>
+          <button
+            className={styles.undoButton}
+            onClick={pickARandomSpot}
+            disabled={squares.every((square) => !square)}
+          >
+            Pick A Move
           </button>
         </div>
       ) : null}

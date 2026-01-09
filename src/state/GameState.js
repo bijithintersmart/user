@@ -25,15 +25,15 @@ export const useGameStore = create(
                 : nextMove,
           }));
         },
-        resetGame: (gameState) => {
-          set((state) => ({
+        resetGame: () => {
+          set(() => ({
             history: [Array(9).fill(null)],
             currentMove: 0,
           }));
         },
         undoGame: () => {
           set((state) => {
-            if (state.currentMove <= 0) {
+            if (state.currentMove <= 2) {
               return state;
             }
             const newHistory = state.history.slice(0, -1);
