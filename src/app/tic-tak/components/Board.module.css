@@ -69,6 +69,71 @@
   border: 1px solid #44445a;
 }
 
+.buttonGroup {
+  display: flex;
+  gap: 0.8rem;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.winnerButtonGroup {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.resetButton, .undoButton, .restartButton {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.resetButton {
+  background-color: #ff6b6b;
+  color: #ffffff;
+}
+
+.resetButton:hover {
+  background-color: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+.undoButton {
+  background-color: #4a4a5a;
+  color: #e6e6e6;
+}
+
+.undoButton:hover:not(:disabled) {
+  background-color: #5a5a6a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(74, 74, 90, 0.4);
+}
+
+.undoButton:disabled {
+  background-color: #3a3a4a;
+  color: #7a7a8a;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.restartButton {
+  background-color: #4361ee;
+  color: #ffffff;
+}
+
+.restartButton:hover {
+  background-color: #3a56e0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.4);
+}
+
 .winnerAnnouncement {
   font-size: 1.4rem;
   font-weight: bold;
@@ -180,6 +245,20 @@
     max-width: 300px;
   }
 
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .winnerButtonGroup {
+    margin-top: 0.8rem;
+  }
+
+  .resetButton, .undoButton, .restartButton {
+    width: 100%;
+    max-width: 200px;
+  }
+
   .winnerAnnouncement,
   .drawAnnouncement {
     font-size: 1.3rem;
@@ -211,6 +290,22 @@
     max-width: 280px;
   }
 
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .winnerButtonGroup {
+    margin-top: 0.6rem;
+  }
+
+  .resetButton, .undoButton, .restartButton {
+    width: 100%;
+    max-width: 220px;
+    padding: 0.6rem 1rem;
+  }
+
   .winnerAnnouncement,
   .drawAnnouncement {
     font-size: 1.2rem;
@@ -239,6 +334,20 @@
 
   .board {
     max-width: 250px;
+  }
+
+  .buttonGroup {
+    gap: 0.5rem;
+  }
+
+  .winnerButtonGroup {
+    margin-top: 0.5rem;
+  }
+
+  .resetButton, .undoButton, .restartButton {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.85rem;
+    min-width: 90px;
   }
 
   .winnerAnnouncement,

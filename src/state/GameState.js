@@ -20,10 +20,29 @@ export const useGameStore = create(
         setCurrentMove: (nextMove) => {
           set((state) => ({
             currentMove:
-              typeof nextMove == "functon"
+              typeof nextMove == "function"
                 ? nextMove(state.currentMove)
                 : nextMove,
           }));
+        },
+        resetGame: (gameState) => {
+          set((state) => ({
+            history: [Array(9).fill(null)],
+            currentMove: 0,
+          }));
+        },
+        undoGame: () => {
+          set((state) => {
+            if (state.currentMove <= 0) {
+              return state;
+            }
+            const newHistory = state.history.slice(0, -1);
+            const newCurrentMove = Math.max(0, state.currentMove - 1);
+            return {
+              history: newHistory,
+              currentMove: newCurrentMove,
+            };
+          });
         },
       };
     }

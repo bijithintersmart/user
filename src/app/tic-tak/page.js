@@ -1,13 +1,15 @@
-"use client"
-import {useGameStore} from "../../state/GameState";
-import Board from './components/Board'
-import styles from './page.module.css';
+"use client";
+import { useGameStore } from "../../state/GameState";
+import Board from "./components/Board";
+import styles from "./page.module.css";
 
 export default function Game() {
   const history = useGameStore((state) => state.history);
   const setHistory = useGameStore((state) => state.setHistory);
   const currentMove = useGameStore((state) => state.currentMove);
   const setCurrentMove = useGameStore((state) => state.setCurrentMove);
+  const resetGame = useGameStore((state) => state.resetGame);
+  const undoGame = useGameStore((state) => state.undoGame);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -25,11 +27,21 @@ export default function Game() {
     <div className={styles.gameContainer}>
       <div className={styles.gameHeader}>
         <h1>Tic Tac Toe</h1>
-        <p className={styles.gameInstructions}>Take turns placing X and O on the board. The first player to get 3 in a row wins!</p>
+        <p className={styles.gameInstructions}>
+          Take turns placing X and O on the board. The first player to get 3 in
+          a row wins!
+        </p>
       </div>
       <div className={styles.gameContent}>
         <div className={styles.boardSection}>
-          <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
+          <Board
+            xIsNext={xIsNext}
+            squares={currentSquares}
+            onPlay={handlePlay}
+            onReset={resetGame}
+            onUndo={undoGame}
+            onRestart={resetGame}
+          />
         </div>
         <div className={styles.movesSection}>
           <h3>Game History</h3>
@@ -43,7 +55,9 @@ export default function Game() {
               return (
                 <li key={historyIndex}>
                   <button
-                    className={`${styles.moveButton} ${currentMove === historyIndex ? styles.currentMove : ''}`}
+                    className={`${styles.moveButton} ${
+                      currentMove === historyIndex ? styles.currentMove : ""
+                    }`}
                     onClick={() => jumpTo(historyIndex)}
                   >
                     {description}

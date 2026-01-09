@@ -1,7 +1,14 @@
 import Square from './square'
 import styles from './Board.module.css';
 
-export default function Board({ xIsNext, squares, onPlay }) {
+export default function Board({
+  xIsNext,
+  squares,
+  onPlay,
+  onReset,
+  onUndo,
+  onRestart,
+}) {
   const winner = calculateWinner(squares);
   const turns = calculateTurns(squares);
   const player = xIsNext ? "X" : "O";
@@ -19,7 +26,11 @@ export default function Board({ xIsNext, squares, onPlay }) {
       <div className={styles.statusDisplay}>
         <h2 className={styles.status}>{status}</h2>
         <div className={styles.playerIndicator}>
-          <span className={`${styles.player} ${xIsNext ? styles.playerX : styles.playerO}`}>
+          <span
+            className={`${styles.player} ${
+              xIsNext ? styles.playerX : styles.playerO
+            }`}
+          >
             Current Player: {player}
           </span>
         </div>
@@ -33,14 +44,40 @@ export default function Board({ xIsNext, squares, onPlay }) {
           />
         ))}
       </div>
+      {/* Show button group only when game is still ongoing */}
+      {!winner && turns > 0 ? (
+        <div className={styles.buttonGroup}>
+          <button className={styles.resetButton} onClick={onReset}>
+            Reset Game
+          </button>
+          <button
+            className={styles.undoButton}
+            onClick={onUndo}
+            disabled={squares.every((square) => !square)}
+          >
+            Undo Move
+          </button>
+        </div>
+      ) : null}
       {winner && (
         <div className={styles.winnerAnnouncement}>
-          🎉 Player <span className={styles.winnerSymbol}>{winner}</span> wins! 🎉
+          🎉 Player <span className={styles.winnerSymbol}>{winner}</span> wins!
+          🎉
+          <div className={styles.winnerButtonGroup}>
+            <button className={styles.restartButton} onClick={onRestart}>
+              Restart Game
+            </button>
+          </div>
         </div>
       )}
       {!winner && !turns && (
         <div className={styles.drawAnnouncement}>
           🤝 It's a draw! 🤝
+          <div className={styles.winnerButtonGroup}>
+            <button className={styles.restartButton} onClick={onRestart}>
+              Restart Game
+            </button>
+          </div>
         </div>
       )}
     </div>
