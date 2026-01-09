@@ -1,0 +1,253 @@
+.boardContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  background-color: #2d2d3a;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.6s ease-out;
+  border: 1px solid #44445a;
+}
+
+.statusDisplay {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  animation: slideInDown 0.5s ease-out;
+}
+
+.status {
+  font-size: 1.5rem;
+  color: #e6e6e6;
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  animation: pulse 2s infinite;
+}
+
+.playerIndicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.player {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 500;
+  animation: glow 2s infinite alternate;
+}
+
+.playerX {
+  background-color: #4a151c;
+  color: #ff6b6b;
+  border: 2px solid #5c1a22;
+}
+
+.playerO {
+  background-color: #1a4024;
+  color: #51cf66;
+  border: 2px solid #1f4d2a;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.5rem;
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 1/1;
+  margin-bottom: 1.5rem;
+  animation: boardEntrance 0.8s ease-out;
+  padding: 1rem;
+  background-color: #1e1e2a;
+  border-radius: 12px;
+  border: 1px solid #44445a;
+}
+
+.winnerAnnouncement {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #51cf66;
+  text-align: center;
+  padding: 1rem;
+  background-color: #1a4024;
+  border-radius: 8px;
+  width: 100%;
+  animation: celebrate 0.5s ease infinite alternate, fadeIn 0.5s ease-out;
+  border: 1px solid #2a5c34;
+}
+
+.winnerSymbol {
+  font-size: 1.6rem;
+  color: #51cf66;
+  font-weight: bold;
+  animation: spin 1s linear infinite;
+}
+
+.drawAnnouncement {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #4cc9f0;
+  text-align: center;
+  padding: 1rem;
+  background-color: #1a2a4a;
+  border-radius: 8px;
+  width: 100%;
+  animation: fadeIn 0.5s ease-out;
+  border: 1px solid #2a3a5a;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes boardEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes celebrate {
+  from { transform: scale(1); }
+  to { transform: scale(1.05); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); }
+  to { box-shadow: 0 0 15px rgba(76, 201, 240, 0.4); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 992px) {
+  .boardContainer {
+    padding: 1.2rem;
+  }
+
+  .status {
+    font-size: 1.4rem;
+  }
+
+  .player {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .board {
+    max-width: 300px;
+  }
+
+  .winnerAnnouncement,
+  .drawAnnouncement {
+    font-size: 1.3rem;
+    padding: 0.8rem;
+  }
+
+  .winnerSymbol {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .boardContainer {
+    padding: 1rem;
+    max-width: 100%;
+  }
+
+  .status {
+    font-size: 1.3rem;
+  }
+
+  .player {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+  }
+
+  .board {
+    max-width: 280px;
+  }
+
+  .winnerAnnouncement,
+  .drawAnnouncement {
+    font-size: 1.2rem;
+    padding: 0.7rem;
+  }
+
+  .winnerSymbol {
+    font-size: 1.3rem;
+  }
+}
+
+/* Small mobile responsiveness */
+@media (max-width: 480px) {
+  .boardContainer {
+    padding: 0.8rem;
+  }
+
+  .status {
+    font-size: 1.2rem;
+  }
+
+  .player {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.5rem;
+  }
+
+  .board {
+    max-width: 250px;
+  }
+
+  .winnerAnnouncement,
+  .drawAnnouncement {
+    font-size: 1.1rem;
+    padding: 0.6rem;
+  }
+
+  .winnerSymbol {
+    font-size: 1.2rem;
+  }
+}

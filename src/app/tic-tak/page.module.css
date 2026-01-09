@@ -1,0 +1,233 @@
+.gameContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  min-height: 100vh;
+  color: #e6e6e6;
+  animation: gradientBG 15s ease infinite;
+}
+
+.gameHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: headerFadeIn 1s ease-out;
+}
+
+.gameHeader h1 {
+  font-size: 2.5rem;
+  color: #e6e6e6;
+  margin-bottom: 0.5rem;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  background: linear-gradient(45deg, #4cc9f0, #4361ee);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% 200%;
+  animation: gradientText 3s ease infinite;
+}
+
+.gameInstructions {
+  font-size: 1.1rem;
+  color: #a9a9a9;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.gameContent {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  animation: contentSlideIn 0.8s ease-out;
+}
+
+.boardSection {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.movesSection {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+  background-color: #2d2d3a;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  animation: cardFloat 3s ease-in-out infinite;
+}
+
+.movesSection h3 {
+  margin-top: 0;
+  color: #e6e6e6;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #44445a;
+  padding-bottom: 0.5rem;
+}
+
+.movesList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movesList li {
+  margin-bottom: 0.5rem;
+}
+
+.moveButton {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #3a3a4a;
+  border: 1px solid #4a4a5a;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1rem;
+  color: #e6e6e6;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.moveButton:hover {
+  background-color: #44445a;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(76, 201, 240, 0.2);
+}
+
+.moveButton.currentMove {
+  background: linear-gradient(45deg, #4361ee, #3a0ca3);
+  color: white;
+  font-weight: bold;
+  border-color: #3a0ca3;
+  box-shadow: 0 4px 12px rgba(67, 97, 238, 0.4);
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes headerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes contentSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes cardFloat {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Tablet responsiveness */
+@media (max-width: 992px) {
+  .gameContainer {
+    padding: 1.5rem;
+  }
+
+  .gameHeader h1 {
+    font-size: 2.2rem;
+  }
+
+  .gameContent {
+    gap: 1.5rem;
+  }
+
+  .boardSection,
+  .movesSection {
+    max-width: 100%;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .gameContainer {
+    padding: 1rem;
+  }
+
+  .gameHeader h1 {
+    font-size: 2rem;
+  }
+
+  .gameHeader p {
+    font-size: 1rem;
+  }
+
+  .gameContent {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .boardSection,
+  .movesSection {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .movesSection {
+    padding: 1rem;
+  }
+}
+
+/* Small mobile responsiveness */
+@media (max-width: 480px) {
+  .gameContainer {
+    padding: 0.5rem;
+  }
+
+  .gameHeader h1 {
+    font-size: 1.8rem;
+  }
+
+  .status {
+    font-size: 1.3rem;
+  }
+
+  .board {
+    max-width: 300px;
+  }
+
+  .square {
+    font-size: 2rem;
+  }
+
+  .movesSection h3 {
+    font-size: 1.2rem;
+  }
+
+  .moveButton {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+}

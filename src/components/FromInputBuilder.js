@@ -20,7 +20,9 @@ export default function FormInputBuilder({ id, labelName, type, value, onChange,
           if (isNumeric) {
             val = val.replace(/\D/g, "");
           }
-          onChange(id, val);
+          if (onChange) {
+            onChange(id, val);
+          } 
         }}
       />
     </div>

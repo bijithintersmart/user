@@ -37,6 +37,7 @@ export default function Home() {
           <div className={styles.controlsRow}>
             <AddUserButton />
             <AddUserButton path={"/form"} title={"Contact US"} />
+            <AddUserButton path={"/tic-tak"} title={"Tik Tak"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder
