@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "@/app/page.module.css";
 import Link from "next/link";
@@ -23,11 +23,23 @@ export default function UserList() {
     // Fetch user data
     async function fetchUsers() {
       try {
-        const data = await fetch("https://randomuser.me/api/?results=50");
-        const result = await data.json();
-        setUserList(result.results);
+        console.log("API Key:", process.env.NEXT_PUBLIC_API_NINJA_KEY); // Debugging
+        const response = await fetch(
+          "https://api.api-ninjas.com/v2/randomuser?count=30",
+          {
+            headers: {
+              "X-Api-Key": process.env.NEXT_PUBLIC_API_NINJA_KEY,
+            },
+          },
+        );
+        console.log("Response status:", response.status); // Debugging
+        const result = await response.json();
+        console.log("API Response:", result); // Debugging
+        // Ensure result is an array - API Ninja returns an array directly
+        setUserList(Array.isArray(result) ? result : []);
       } catch (error) {
         console.error("Error fetching users:", error);
+        setUserList([]); // Set empty array on error
       } finally {
         setLoading(false);
       }
@@ -71,23 +83,24 @@ export default function UserList() {
   return (
     <ul className={styles.userList}>
       {userList.map((post) => (
-        <li key={post.login.uuid} className={styles.userListItem}>
+        <li key={post.uuid} className={styles.userListItem}>
           <Link
-            href={`/${post.login.uuid}`}
+            href={`/${post.uuid}`}
             style={{ textDecoration: "none", width: "100%" }}
           >
             <div className={styles.userItem}>
               <Image
                 src={getImage({
-                  name: post.name.first,
-                  flip: post.dob.age % 2 === 0,
+                  name:
+                    post.name || post.full_name || post.first_name || "Unknown",
+                  flip: (post.age || 0) % 2 === 0,
                   size: 100,
                   backgroundColor: [
                     generateRandomHexColor().replaceAll("#", ""),
                   ],
                   imageType: imageType,
                 })}
-                alt={`${post.name.first} ${post.name.last}`}
+                alt={`${post.name || post.full_name || post.first_name || "Unknown"} ${post.last_name || ""}`}
                 width={56}
                 height={56}
                 placeholder="blur"
@@ -96,9 +109,11 @@ export default function UserList() {
               />
               <div className={styles.userInfo}>
                 <span className={styles.userName}>
-                  {post.name.title}. {post.name.first} {post.name.last}
+                  {post.prefix || "Mr"}.{" "}
+                  {post.name || post.full_name || post.first_name || "Unknown"}{" "}
+                  {post.last_name || "User"}
                 </span>
-                <span className={styles.userEmail}>{post.email}</span>
+                <span className={styles.userEmail}>{post.email || "N/A"}</span>
               </div>
               <Image
                 src="/phone.svg"
