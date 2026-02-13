@@ -3,7 +3,7 @@ import styles from "../app/page.module.css";
 import { v4 as uuidv4 } from "uuid";
 import { useState, useEffect } from "react";
 
-export default function AddUserButton({ path, title }) {
+export default function AddButton({ path, title }) {
   const [uuid, setUuid] = useState("");
 
   useEffect(() => {
@@ -12,8 +12,11 @@ export default function AddUserButton({ path, title }) {
 
   return (
     <div>
-      <a href={path ? path : `/${uuid || "loading"}`} className={styles.buttonclass}>
-        {title ? title : "PICK ONE"}
+      <a
+        href={path ? path : `/${uuid || "loading"}`}
+        className={styles.buttonclass}
+      >
+        {title ? title : "RANDOM USER"}
       </a>
     </div>
   );

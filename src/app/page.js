@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import UserList from "@/components/userList";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import AddUserButton from "@/components/AddUserButton";
+import AddButton from "@/components/AddButton";
 import FormDropDownBuilder from "@/components/FormDropDownBuilder";
 
 export default function Home() {
@@ -35,11 +35,11 @@ export default function Home() {
         </div>
         <div className={styles.controlsContainer}>
           <div className={styles.controlsRow}>
-            <AddUserButton />
-            <AddUserButton path={"/form"} title={"Contact US"} />
-            <AddUserButton path={"/tic-tak"} title={"Tik Tak"} />
-            <AddUserButton path={"/quotes"} title={"Quotes"} />
-            <AddUserButton path={"/riddles"} title={"Riddles"} />
+            <AddButton />
+            <AddButton path={"/form"} title={"Contact US"} />
+            <AddButton path={"/tic-tak"} title={"Tik Tak"} />
+            <AddButton path={"/quotes"} title={"Quotes"} />
+            <AddButton path={"/riddles"} title={"Riddles"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder
