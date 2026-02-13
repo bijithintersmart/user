@@ -38,6 +38,8 @@ export default function Home() {
             <AddUserButton />
             <AddUserButton path={"/form"} title={"Contact US"} />
             <AddUserButton path={"/tic-tak"} title={"Tik Tak"} />
+            <AddUserButton path={"/quotes"} title={"Quotes"} />
+            <AddUserButton path={"/riddles"} title={"Riddles"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder
