@@ -220,7 +220,8 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 16px;
+  align-items: center;
+    gap: 12px;
   width: 100%;
 }
 
@@ -1040,7 +1041,7 @@ a.secondary {
 }
 
 .refreshButton {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
   padding: 16px 32px;
   margin: 20px 15px;
   border-radius: 12px;
@@ -1050,7 +1051,7 @@ a.secondary {
   font-size: 16px;
   font-weight: 600;
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
   position: relative;
   overflow: hidden;
   display: inline-block;
@@ -1084,8 +1085,8 @@ a.secondary {
 
 .refreshButton:hover:not(:disabled) {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(102, 126, 234, 0.6);
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.6);
+    background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
   text-decoration: none;
 }
 
@@ -1105,4 +1106,503 @@ a.secondary {
   transform: none;
   box-shadow: none;
   opacity: 0.6;
+}
+/* Sudoku styles */
+
+.checkButton {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #9c27b0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.checkButton:hover:not(:disabled) {
+  background-color: #7b1fa2;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+}
+
+.checkButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.sudokuContainer {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+  /* Reduced gap for better spacing */
+}
+
+.sudokuBoard {
+  display: flex;
+  flex-direction: column;
+  border: 4px solid #4f46e5;
+  /* Thicker indigo border */
+  border-radius: 8px;
+  overflow: hidden;
+  background: #1f2937;
+  /* Dark gray background */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.sudokuRow {
+  display: flex;
+}
+
+.sudokuInput {
+  width: 44px;
+  height: 44px;
+  border: 2px solid #6b7280;
+  /* Thicker gray border */
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  outline: none;
+  background: #374151;
+  /* Darker gray */
+  color: #f9fafb;
+  /* Light text for contrast */
+  caret-color: #4f46e5;
+  /* Indigo caret */
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.sudokuInput:focus {
+  background-color: #4f46e5;
+  /* Indigo background when focused */
+  border-color: #818cf8;
+  /* Light indigo border */
+  box-shadow: inset 0 0 0 2px #818cf8;
+  /* Light indigo inner border */
+  z-index: 2;
+  /* Ensure focused cell appears above others */
+}
+
+.initialCell {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #6b7280;
+  /* Thicker gray border */
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #1e293b;
+  /* Darker blue-gray */
+  color: #e0e7ff;
+  /* Light indigo text */
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.userCell {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #6b7280;
+  /* Thicker gray border */
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #374151;
+  /* Dark gray */
+  color: #f9fafb;
+  /* Light text */
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.topBorder {
+  border-top: 4px solid #4f46e5 !important;
+  /* Thicker border for major sections */
+}
+
+.leftBorder {
+  border-left: 4px solid #4f46e5 !important;
+  /* Thicker border for major sections */
+}
+
+.correctCell {
+  background-color: #10b981 !important;
+  /* Green background for correct cells */
+  color: white;
+}
+
+.incorrectCell {
+  background-color: #ef4444 !important;
+  /* Red background for incorrect cells */
+  color: white;
+}
+
+/* Uniform button styling for Sudoku controls */
+.sudokuButton {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  /* Increased gap for better spacing */
+  min-width: 120px;
+  text-align: center;
+  text-decoration: none;
+  margin: 0 8px;
+  /* Add margin for spacing between buttons */
+}
+
+.sudokuButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  transition: left 0.6s;
+}
+
+.sudokuButton:hover:not(:disabled)::before {
+  left: 100%;
+}
+
+.sudokuButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  text-decoration: none;
+}
+
+.sudokuButton:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sudokuButton:focus:not(:disabled) {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.4);
+}
+
+.sudokuButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  opacity: 0.6;
+}
+
+/* Controls container for proper spacing */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  /* Consistent spacing between controls */
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Error message styling */
+.errorContainer {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 6px 12px rgba(239, 68, 68, 0.3);
+  margin: 20px 0;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.errorText {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.retryButton {
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.retryButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.retryButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Specific button color variations */
+.primaryButton {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+}
+
+.primaryButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+}
+
+.secondaryButton {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: white;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #4b5563 0%, #6b7280 100%);
+}
+
+.successButton {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.successButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.dangerButton {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.dangerButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+}
+
+.difficultySelect {
+  padding: 10px 14px;
+  border: 2px solid #4f46e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  background: linear-gradient(to bottom, #374151, #1f2937);
+  color: #f9fafb;
+  min-width: 120px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23e5e7eb' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 12px;
+  padding-right: 32px;
+  transition: all 0.2s ease;
+  height: 42px;
+}
+
+.difficultySelect:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
+  border-color: #818cf8;
+}
+
+.difficultySelect:focus {
+  outline: none;
+  border-color: #c7d2fe;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.4);
+}
+
+.selectedCell {
+  background-color: #4f46e5 !important;
+  /* Indigo background for selected cell */
+  box-shadow: inset 0 0 0 2px #ffffff;
+  /* White border for selected cell */
+}
+
+.numberInputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+  max-width: 300px;
+  margin-top: 20px;
+}
+
+.numberInputSection label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.numberInputField {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #4f46e5;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  background-color: var(--background);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.numberInputField:focus {
+  outline: none;
+  border-color: #818cf8;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.4);
+}
+
+.addNumberButton {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.addNumberButton:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+}
+
+.addNumberButton:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.selectedCellInfo {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+  text-align: center;
+}
+
+/* Additional Sudoku styles for new UI */
+.sudokuCellWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.numberButtons {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  /* 3x3 grid plus 2 for clear */
+  gap: 2px;
+  padding: 5px;
+  background: #1f2937;
+  /* Dark background */
+  border: 2px solid #4f46e5;
+  /* Indigo border */
+  border-radius: 8px;
+  z-index: 10;
+  /* Ensure buttons are above other cells */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.numberButton {
+  width: 24px;
+  height: 24px;
+  font-size: 12px;
+  font-weight: bold;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  background: #374151;
+  color: #f9fafb;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.numberButton:hover {
+  background: #4f46e5;
+  /* Indigo background on hover */
+  transform: scale(1.1);
+}
+
+.clearButton {
+  width: 100%;
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid #4b5563;
+  border-radius: 4px;
+  background: #dc2626;
+  /* Red background for clear */
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  grid-column: span 2;
+  /* Span 2 columns to fill space */
+}
+
+.clearButton:hover {
+  background: #b91c1c;
+  /* Darker red on hover */
+  transform: scale(1.05);
+}
+
+.selectedCell {
+  background-color: #4f46e5 !important;
+  /* Indigo background for selected cell */
+  box-shadow: inset 0 0 0 2px #ffffff;
+  /* White border for selected cell */
 }

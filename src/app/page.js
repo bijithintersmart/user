@@ -40,6 +40,7 @@ export default function Home() {
             <AddButton path={"/tic-tak"} title={"Tik Tak"} />
             <AddButton path={"/quotes"} title={"Quotes"} />
             <AddButton path={"/riddles"} title={"Riddles"} />
+            <AddButton path={"/sudoku"} title={"Sudoku"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder
