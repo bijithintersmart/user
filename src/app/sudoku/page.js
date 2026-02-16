@@ -22,12 +22,14 @@ export default function SudokuPage() {
   const [error, setError] = useState(null);
   const [selectedCell, setSelectedCell] = useState(null);
   const [isSolved, setIsSolved] = useState(false);
+  const [fullSolution, setFullSolution] = useState(null);
 
   // Generate a new Sudoku puzzle
   const generateSudoku = useCallback(async () => {
     setLoading(true);
     setError(null);
     setSolution(null);
+    setFullSolution(null);
     setIsSolved(false);
 
     try {
@@ -50,11 +52,16 @@ export default function SudokuPage() {
       const data = await response.json();
 
       if (data && data.puzzle) {
-        setBoard(data.puzzle);
-        setInitialBoard(JSON.parse(JSON.stringify(data.puzzle)));
+        // Normalize puzzle data: replace null with 0
+        const normalizedPuzzle = data.puzzle.map(row => 
+          row.map(cell => cell === null ? 0 : cell)
+        );
+        
+        setBoard(normalizedPuzzle);
+        setInitialBoard(JSON.parse(JSON.stringify(normalizedPuzzle)));
         // Store the solution if it's provided in the response
         if (data.solution) {
-          setSolution(data.solution);
+          setFullSolution(data.solution);
         }
       } else {
         setError(
@@ -77,7 +84,11 @@ export default function SudokuPage() {
 
     try {
       // If solution is already available, use it directly
-      if (solution) {
+      if (fullSolution) {
+        setBoard(fullSolution);
+        setSolution(fullSolution);
+        setIsSolved(true);
+      } else if (solution) {
         setBoard(solution);
         setIsSolved(true);
       } else {
@@ -106,6 +117,7 @@ export default function SudokuPage() {
         const data = await response.json();
 
         if (data && data.solution) {
+          setFullSolution(data.solution);
           setSolution(data.solution);
           setBoard(data.solution);
           setIsSolved(true);
@@ -156,7 +168,7 @@ export default function SudokuPage() {
         // Keep the cell selected after value change
       }
     },
-    [isSolved, initialBoard, selectedCell],
+    [isSolved, initialBoard],
   );
 
   // Check if a cell's value is correct
@@ -182,18 +194,24 @@ export default function SudokuPage() {
   const resetPuzzle = useCallback(() => {
     setBoard(JSON.parse(JSON.stringify(initialBoard)));
     setIsSolved(false);
+    setSolution(null);
     setError(null);
   }, [initialBoard]);
 
   // Check the user's answer
   const checkAnswer = useCallback(async () => {
+    if (difficulty === "hard") {
+      setError("Check Answer feature is only available in Easy and Medium modes.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
     try {
       // If solution is already available, use it directly
-      if (solution) {
-        setSolution(solution);
+      if (fullSolution) {
+        setSolution(fullSolution);
       } else {
         // Fallback to API call if solution is not available
         const response = await fetch(
@@ -216,6 +234,7 @@ export default function SudokuPage() {
 
         const data = await response.json();
         if (data && data.solution) {
+          setFullSolution(data.solution);
           setSolution(data.solution);
         }
       }
@@ -224,7 +243,7 @@ export default function SudokuPage() {
     } finally {
       setLoading(false);
     }
-  }, [initialBoard, solution]);
+  }, [initialBoard, solution, fullSolution, difficulty]);
 
   // Initialize with a Sudoku puzzle
   useEffect(() => {
@@ -276,7 +295,6 @@ export default function SudokuPage() {
             selectedCell={selectedCell}
             isSolved={isSolved}
             handleCellChange={handleCellChange}
-            isCellCorrect={isCellCorrect}
             setSelectedCell={setSelectedCell}
           />
 

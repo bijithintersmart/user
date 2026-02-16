@@ -1,23 +1,27 @@
-import { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import styles from "../sudoku.module.css";
 
-const SudokuCell = ({ 
+const SudokuCell = React.memo(({ 
   cell, 
   rowIndex, 
   colIndex, 
   initialBoard, 
   solution, 
-  selectedCell, 
+  isSelected, 
   isSolved, 
   handleCellChange, 
-  isCellCorrect,
   setSelectedCell
 }) => {
   const isInitial = initialBoard[rowIndex][colIndex] !== 0;
   const isTopBorder = rowIndex % 3 === 0;
   const isLeftBorder = colIndex % 3 === 0;
-  const cellCorrect = isCellCorrect(rowIndex, colIndex);
-  const isSelected = selectedCell && selectedCell.row === rowIndex && selectedCell.col === colIndex;
+  
+  // Calculate correctness internally based on solution prop
+  const cellCorrect = useMemo(() => {
+    if (!solution || isInitial) return null;
+    if (cell === 0) return null;
+    return cell === solution[rowIndex][colIndex];
+  }, [cell, solution, initialBoard, rowIndex, colIndex, isInitial]);
 
   const handleCellClick = useCallback(() => {
     if (!isInitial && !isSolved) {
@@ -41,19 +45,6 @@ const SudokuCell = ({
     }
   }, []);
 
-  const handleNumberButtonClick = useCallback((e, num) => {
-    e.stopPropagation(); // Prevent triggering cell selection
-    handleCellChange(rowIndex, colIndex, num.toString());
-    // Auto-deselect after choosing a number
-    setTimeout(() => setSelectedCell(null), 300);
-  }, [rowIndex, colIndex, handleCellChange, setSelectedCell]);
-
-  const handleClearButtonClick = useCallback((e) => {
-    e.stopPropagation(); // Prevent triggering cell selection
-    handleCellChange(rowIndex, colIndex, "");
-    // Auto-deselect after clearing
-    setTimeout(() => setSelectedCell(null), 300);
-  }, [rowIndex, colIndex, handleCellChange, setSelectedCell]);
 
   return (
     <div
@@ -90,28 +81,10 @@ const SudokuCell = ({
         />
       )}
 
-      {/* Number buttons appear when cell is selected */}
-      {isSelected && !isSolved && (
-        <div className={styles.numberButtons}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
-            <button
-              key={num}
-              className={styles.numberButton}
-              onClick={(e) => handleNumberButtonClick(e, num)}
-            >
-              {num}
-            </button>
-          ))}
-          <button
-            className={styles.clearButton}
-            onClick={handleClearButtonClick}
-          >
-            Clear
-          </button>
-        </div>
-      )}
     </div>
   );
-};
+});
+
+SudokuCell.displayName = "SudokuCell";
 
 export default SudokuCell;

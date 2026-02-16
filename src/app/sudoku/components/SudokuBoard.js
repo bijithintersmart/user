@@ -23,10 +23,9 @@ const SudokuBoard = ({
               colIndex={colIndex}
               initialBoard={initialBoard}
               solution={solution}
-              selectedCell={selectedCell}
+              isSelected={selectedCell && selectedCell.row === rowIndex && selectedCell.col === colIndex}
               isSolved={isSolved}
               handleCellChange={handleCellChange}
-              isCellCorrect={isCellCorrect}
               setSelectedCell={setSelectedCell}
             />
           ))}
