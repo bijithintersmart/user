@@ -1450,6 +1450,16 @@ a.secondary {
   /* White border for selected cell */
 }
 
+.emptyCell {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.emptyCell:hover {
+  background-color: rgba(79, 70, 229, 0.2) !important;
+  /* Light indigo background on hover */
+}
+
 .numberInputSection {
   display: flex;
   flex-direction: column;
@@ -1605,4 +1615,14 @@ a.secondary {
   /* Indigo background for selected cell */
   box-shadow: inset 0 0 0 2px #ffffff;
   /* White border for selected cell */
+}
+
+.emptyCell {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.emptyCell:hover {
+  background-color: rgba(79, 70, 229, 0.2) !important;
+  /* Light indigo background on hover */
 }
