@@ -198,10 +198,16 @@ export default function SudokuPage() {
     setError(null);
   }, [initialBoard]);
 
-  // Check the user's answer
+  // Check/Toggle the user's answer
   const checkAnswer = useCallback(async () => {
     if (difficulty === "hard") {
       setError("Check Answer feature is only available in Easy and Medium modes.");
+      return;
+    }
+
+    // Toggle: if solution is already showing, hide it
+    if (solution) {
+      setSolution(null);
       return;
     }
 

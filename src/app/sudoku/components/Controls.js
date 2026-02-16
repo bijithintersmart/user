@@ -44,7 +44,7 @@ const Controls = ({
         className={`${styles.sudokuButton} ${styles.secondaryButton}`}
         disabled={loading || isSolved}
       >
-        Check Answer
+        {solution ? "Disable Answer" : "Check Answer"}
       </button>
 
       <button
