@@ -44,7 +44,7 @@ export default function Home() {
             <AddButton path={"/air-quality"} title={"Air Quality"} />
             <AddButton path={"/qrcode"} title={"QR Code"} />
             <AddButton path={"/barcode"} title={"Barcode"} />
-            <AddButton path={"/state"} title={"State"} />
+            <AddButton path={"/airlines"} title={"Airlines"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder

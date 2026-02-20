@@ -1,0 +1,575 @@
+.page {
+  min-height: 100vh;
+  background: #020617;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.3) 0, transparent 50%),
+    radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.2) 0, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.3) 0, transparent 50%),
+    url("https://www.transparenttextures.com/patterns/dark-matter.png");
+  color: #f1f5f9;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  padding: 4rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.page::before {
+  content: "";
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 120%;
+  height: 120%;
+  background: url("https://images.unsplash.com/photo-1542296332-2e4473faf563?q=80&w=2070&auto=format&fit=crop") center/cover no-repeat;
+  opacity: 0.1;
+  filter: blur(100px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  z-index: 1;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 5rem;
+  animation: fadeInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.headerIcon {
+  width: 96px;
+  height: 96px;
+  background: linear-gradient(145deg, #3b82f6, #2563eb);
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 20px 40px rgba(37, 99, 235, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  color: white;
+  transform: rotate(-10deg);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.headerIcon:hover {
+  transform: rotate(0deg) scale(1.1);
+}
+
+.headerIcon svg {
+  width: 52px;
+  height: 52px;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+.title {
+  font-size: 4rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #fff 30%, #93c5fd 60%, #3b82f6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.subtitle {
+  color: #94a3b8;
+  font-size: 1.4rem;
+  font-weight: 500;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.searchSection {
+  margin-bottom: 5rem;
+  display: flex;
+  justify-content: center;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+.searchBox {
+  display: flex;
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 0.6rem;
+  border-radius: 24px;
+  backdrop-filter: blur(24px) saturate(150%);
+  width: 100%;
+  max-width: 700px;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
+}
+
+.searchBox:focus-within {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.searchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 1.25rem 2rem;
+  color: white;
+  font-size: 1.25rem;
+  outline: none;
+  font-weight: 400;
+}
+
+.searchInput::placeholder {
+  color: #475569;
+}
+
+.searchButton {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  padding: 0 2.5rem;
+  border-radius: 18px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.searchButton:hover {
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  transform: scale(1.02);
+}
+
+.searchButton:disabled {
+  background: #1e293b;
+  color: #475569;
+  cursor: not-allowed;
+  opacity: 0.5;
+  box-shadow: none;
+}
+
+.resultsList {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+}
+
+.airlineCard {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 40px;
+  padding: 4rem;
+  backdrop-filter: blur(40px);
+  animation: cardFade 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.airlineCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+  opacity: 0.8;
+}
+
+.airlineCard:hover {
+  border-color: rgba(59, 130, 246, 0.4);
+  transform: scale(1.01);
+  box-shadow: 0 50px 100px -30px rgba(0, 0, 0, 0.6);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  margin-bottom: 4rem;
+}
+
+.logoContainer {
+  width: 140px;
+  height: 140px;
+  background: white;
+  border-radius: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.75rem;
+  flex-shrink: 0;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.logo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.airlineInfo {
+  flex: 1;
+}
+
+.airlineName {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  color: white;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.airlineMeta {
+  display: flex;
+  gap: 2rem;
+  color: #94a3b8;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.metaBadge {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  padding: 0.35rem 0.9rem;
+  border-radius: 10px;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, 0.3) inset;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+}
+
+@media (max-width: 900px) {
+  .detailsGrid { grid-template-columns: 1fr; }
+}
+
+.infoSection {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2rem;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s;
+}
+
+.infoSection:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.sectionTitle {
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #64748b;
+  margin-bottom: 1.25rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.infoValue {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #f1f5f9;
+}
+
+.mapGrid {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 900px) {
+  .mapGrid { grid-template-columns: 1fr; }
+}
+
+.mapSection, .flightMapSection {
+  background: #000;
+  border-radius: 32px;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeader {
+  padding: 1.25rem 2rem;
+  background: rgba(30, 41, 59, 0.8);
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  z-index: 2;
+}
+
+.mapIframe {
+  flex: 1;
+  width: 100%;
+  border: none;
+  filter: grayscale(0.5) contrast(1.1);
+}
+
+.mapOverlay {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  background: rgba(15, 23, 42, 0.9);
+  padding: 0.75rem 1.5rem;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: white;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.flightVisual {
+  flex: 1;
+  background: radial-gradient(circle at center, #0f172a, #020617);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.worldMap {
+  width: 100%;
+  height: auto;
+  max-width: 500px;
+}
+
+.flightPath {
+  fill: none;
+  stroke: rgba(59, 130, 246, 0.3);
+  stroke-width: 2;
+  stroke-dasharray: 5, 5;
+}
+
+.plane {
+  fill: #3b82f6;
+  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+}
+
+.pulse {
+  fill: rgba(59, 130, 246, 0.4);
+  animation: mapPulse 2s infinite;
+}
+
+@keyframes mapPulse {
+  0% { r: 6; opacity: 1; }
+  100% { r: 25; opacity: 0; }
+}
+
+.routeLabel {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #3b82f6;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: rgba(59, 130, 246, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+}
+
+.fleetContainer {
+  grid-column: 1 / -1;
+}
+
+.fleetSection {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 3rem;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.fleetTitle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+}
+
+.totalFleet {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+}
+
+.fleetGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.fleetItem {
+  background: rgba(15, 23, 42, 0.5);
+  padding: 1.5rem 2rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s;
+}
+
+.fleetItem:hover {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(59, 130, 246, 0.3);
+  transform: translateY(-5px);
+}
+
+.aircraftModel {
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.aircraftCount {
+  font-weight: 800;
+  color: white;
+  font-size: 2rem;
+}
+
+.visuals {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 600px) {
+  .visuals { grid-template-columns: 1fr; }
+}
+
+.visualCard {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  transition: transform 0.4s;
+  cursor: zoom-in;
+}
+
+.visualCard:hover {
+  transform: translateY(-10px);
+}
+
+.visualLabel {
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.visualImg {
+  height: 100px;
+  width: 100%;
+  object-fit: contain;
+}
+
+/* Animations */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes cardFade {
+  from { opacity: 0; transform: translateY(60px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 0;
+}
+
+.spinner {
+  width: 64px;
+  height: 64px;
+  border: 6px solid rgba(59, 130, 246, 0.1);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s infinite cubic-bezier(0.55, 0.15, 0.45, 0.85);
+  margin-bottom: 2rem;
+}
+
+.noResults {
+  text-align: center;
+  padding: 10rem 0;
+  color: #475569;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.error {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  padding: 1.5rem;
+  border-radius: 20px;
+  margin-bottom: 3rem;
+  text-align: center;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 768px) {
+  .title { font-size: 2.5rem; }
+  .airlineName { font-size: 2.2rem; }
+  .cardHeader { flex-direction: column; gap: 2rem; text-align: center; }
+  .airlineCard { padding: 2.5rem; }
+}
