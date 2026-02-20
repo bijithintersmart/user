@@ -241,7 +241,7 @@ export default function BarcodePage() {
                     <span className={styles.metaText}>{inputText}</span>
                   </div>
                   <button className={styles.downloadBtn} onClick={download}>
-                    ⬇ Download PNG
+                     Download PNG
                   </button>
                 </div>
               )}
