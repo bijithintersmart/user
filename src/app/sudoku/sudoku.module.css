@@ -7,7 +7,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 25px;
+  gap: 30px;
+    background: radial-gradient(circle at top left, #1f2937, #111827);
+    min-height: 100vh;
+    color: #f9fafb;
 }
 
 .title {
@@ -166,9 +169,39 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  gap: 15px;
+    width: 100%;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  .controlGroup {
+    display: flex;
   gap: 12px;
-  width: 100%;
-  margin-bottom: 20px;
+    align-items: center;
+    }
+    
+    .timerDisplay {
+    width: 100%;
+    display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #10b981;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+      margin-bottom: 10px;
+    }
+    
+    .timerIcon {
+      font-size: 1.5rem;
 }
 
 /* Specific button color variations */
@@ -324,6 +357,20 @@
   transform: scale(1.05);
 }
 
+.gameOverControls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.errorMessage {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ef4444;
+  text-align: center;
+  margin-top: 10px;
+}
 .solvedMessage {
   font-size: 1.2rem;
   font-weight: 600;

@@ -85,7 +85,7 @@ export default function UserList() {
       {userList.map((post) => (
         <li key={post.uuid} className={styles.userListItem}>
           <Link
-            href={`/${post.uuid}`}
+            href={`/user/${post.uuid}`}
             style={{ textDecoration: "none", width: "100%" }}
           >
             <div className={styles.userItem}>

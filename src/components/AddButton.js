@@ -13,7 +13,7 @@ export default function AddButton({ path, title }) {
   return (
     <div>
       <a
-        href={path ? path : `/${uuid || "loading"}`}
+        href={path ? path : `/user/${uuid || "loading"}`}
         className={styles.buttonclass}
       >
         {title ? title : "RANDOM USER"}
