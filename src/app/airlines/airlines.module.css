@@ -1,7 +1,7 @@
 .page {
   min-height: 100vh;
   background: #020617;
-  background-image: 
+  background-image:
     radial-gradient(at 0% 0%, rgba(30, 58, 138, 0.3) 0, transparent 50%),
     radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.2) 0, transparent 50%),
     radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.3) 0, transparent 50%),
@@ -77,7 +77,7 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  text-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
 }
 
 .subtitle {
@@ -104,7 +104,7 @@
   backdrop-filter: blur(24px) saturate(150%);
   width: 100%;
   max-width: 700px;
-  box-shadow: 
+  box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.5),
     0 0 0 1px rgba(255, 255, 255, 0.05);
   transition: border-color 0.4s, box-shadow 0.4s, transform 0.4s;
@@ -257,7 +257,9 @@
 }
 
 @media (max-width: 900px) {
-  .detailsGrid { grid-template-columns: 1fr; }
+  .detailsGrid {
+      grid-template-columns: 1fr;
+    }
 }
 
 .infoSection {
@@ -299,10 +301,13 @@
 }
 
 @media (max-width: 900px) {
-  .mapGrid { grid-template-columns: 1fr; }
+  .mapGrid {
+      grid-template-columns: 1fr;
+    }
 }
 
-.mapSection, .flightMapSection {
+.mapSection,
+.flightMapSection {
   background: #000;
   border-radius: 32px;
   height: 400px;
@@ -329,78 +334,133 @@
 .mapIframe {
   flex: 1;
   width: 100%;
-  border: none;
   filter: grayscale(0.5) contrast(1.1);
 }
 
-.mapOverlay {
-  position: absolute;
-  bottom: 2rem;
-  left: 2rem;
-  background: rgba(15, 23, 42, 0.9);
-  padding: 0.75rem 1.5rem;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  color: white;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+.operationalMetrics {
+  padding: 1.5rem;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 2;
+  justify-content: space-between;
+    gap: 1.25rem;
+    background: rgba(30, 41, 59, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.flightVisual {
+@media (max-width: 600px) {
+  .operationalMetrics {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+
+.metricItem {
   flex: 1;
-  background: radial-gradient(circle at center, #0f172a, #020617);
-  position: relative;
+  background: rgba(15, 23, 42, 0.6);
+    padding: 0.85rem;
+    border-radius: 16px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 2rem;
+  gap: 0.25rem;
+    transition: all 0.3s;
+  }
+  
+  .metricItem:hover {
+    background: rgba(30, 41, 59, 0.8);
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+  }
+  
+  .metricLabel {
+    font-size: 0.65rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+  
+  .metricValue {
+    font-size: 1.25rem;
+    font-weight: 900;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  
+  .metricTrend {
+    font-size: 0.75rem;
+    color: #4ade80;
+    font-weight: 800;
+  }
+  
+  .flightVisual {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .worldMap {
+  flex: 1;
   width: 100%;
-  height: auto;
-  max-width: 500px;
+  padding: 2rem;
+    min-height: 250px;
 }
 
 .flightPath {
   fill: none;
   stroke: rgba(59, 130, 246, 0.3);
-  stroke-width: 2;
-  stroke-dasharray: 5, 5;
+  stroke-width: 1;
+    stroke-dasharray: 4, 4;
 }
 
-.plane {
-  fill: #3b82f6;
-  filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.8));
+.planeSwarm {
+  filter: drop-shadow(0 0 8px #60a5fa);
 }
 
-.pulse {
-  fill: rgba(59, 130, 246, 0.4);
-  animation: mapPulse 2s infinite;
+.radarRing {
+  fill: none;
+  stroke: rgba(59, 130, 246, 0.1);
+  stroke-width: 1;
+  stroke-dasharray: 10, 20;
 }
 
-@keyframes mapPulse {
-  0% { r: 6; opacity: 1; }
-  100% { r: 25; opacity: 0; }
+.radarSweep {
+  animation: radarRotate 10s linear infinite;
+  transform-origin: 400px 200px;
+}
+
+@keyframes radarRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+    to {
+      transform: rotate(360deg);
+    }
 }
 
 .routeLabel {
-  position: absolute;
-  bottom: 2rem;
-  right: 2rem;
+  background: rgba(15, 23, 42, 0.8);
+    padding: 1rem;
   font-size: 0.8rem;
   font-weight: 700;
-  color: #3b82f6;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  background: rgba(59, 130, 246, 0.1);
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  color: #94a3b8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  
+  .liveIndicator {
+    width: 8px;
+    height: 8px;
+    background: #ef4444;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ef4444;
+    animation: blink 1.2s ease-in-out infinite;
 }
 
 .fleetContainer {
@@ -476,7 +536,9 @@
 }
 
 @media (max-width: 600px) {
-  .visuals { grid-template-columns: 1fr; }
+  .visuals {
+      grid-template-columns: 1fr;
+    }
 }
 
 .visualCard {
@@ -511,22 +573,45 @@
 
 /* Animations */
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(40px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
 }
 
 @keyframes cardFade {
-  from { opacity: 0; transform: translateY(60px) scale(0.95); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  from {
+      opacity: 0;
+      transform: translateY(60px) scale(0.95);
+    }
+  
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+      transform: rotate(360deg);
+    }
 }
 
 .loading {
@@ -568,8 +653,21 @@
 }
 
 @media (max-width: 768px) {
-  .title { font-size: 2.5rem; }
-  .airlineName { font-size: 2.2rem; }
-  .cardHeader { flex-direction: column; gap: 2rem; text-align: center; }
-  .airlineCard { padding: 2.5rem; }
-}
+  .title {
+      font-size: 2.5rem;
+    }
+
+    .airlineName {
+      font-size: 2.2rem;
+    }
+  
+    .cardHeader {
+      flex-direction: column;
+      gap: 2rem;
+      text-align: center;
+    }
+  
+    .airlineCard {
+      padding: 2.5rem;
+    }
+    }

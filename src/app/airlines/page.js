@@ -164,19 +164,70 @@ export default function AirlineShowcase() {
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                             <polyline points="22 4 12 14.01 9 11.01" />
                           </svg>
-                          Global Route Network
+                          Mission Control: Operational Status
                         </div>
                         <div className={styles.flightVisual}>
-                          <svg viewBox="0 0 800 400" className={styles.worldMap}>
-                            <path d="M150,200 Q400,50 650,200" className={styles.flightPath} />
-                            <circle cx="150" cy="200" r="4" fill="#3b82f6" />
-                            <circle cx="650" cy="200" r="4" fill="#60a5fa" />
-                            <circle cx="150" cy="200" r="10" className={styles.pulse} />
-                            <path d="M150,200 L160,190 L155,200 L160,210 Z" className={styles.plane}>
-                              <animateMotion dur="4s" repeatCount="indefinite" path="M150,200 Q400,50 650,200" rotate="auto" />
-                            </path>
+                          <div className={styles.operationalMetrics}>
+                            <div className={styles.metricItem}>
+                              <span className={styles.metricLabel}>Active Flights</span>
+                              <span className={styles.metricValue}>
+                                {Math.floor((airline.fleet?.total || 10) * 0.45)} 
+                                <span className={styles.metricTrend}>↑</span>
+                              </span>
+                            </div>
+                            <div className={styles.metricItem}>
+                              <span className={styles.metricLabel}>Daily Ops</span>
+                              <span className={styles.metricValue}>
+                                {Math.floor((airline.fleet?.total || 10) * 4.2)}
+                              </span>
+                            </div>
+                            <div className={styles.metricItem}>
+                              <span className={styles.metricLabel}>Domain</span>
+                              <span className={styles.metricValue}>
+                                {airline.fleet?.total > 100 ? "Global" : airline.fleet?.total > 30 ? "Regional" : "Local"}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <svg viewBox="0 0 800 400" className={styles.worldMap} preserveAspectRatio="xMidYMid meet">
+                            <defs>
+                              <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0" />
+                                <stop offset="50%" stopColor="#3b82f6" stopOpacity="0.5" />
+                                <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+                              </linearGradient>
+                            </defs>
+                            
+                            {[...Array(Math.min(6, Math.ceil((airline.fleet?.total || 10) / 30)))].map((_, i) => {
+                              const pathData = `M${100 + (i * 30)},320 Q400,${40 + (i * 30)} ${700 - (i * 30)},320`;
+                              return (
+                                <g key={i}>
+                                  <path d={pathData} className={styles.flightPath} stroke="url(#pathGrad)" />
+                                  <path d="M-8,-5 L8,0 L-8,5 L-5,0 Z" className={styles.planeSwarm} fill="#60a5fa">
+                                    <animateMotion 
+                                      dur={`${5 + (i * 1.5)}s`} 
+                                      repeatCount="indefinite" 
+                                      path={pathData} 
+                                      rotate="auto" 
+                                      begin={`${i * 1.2}s`}
+                                    />
+                                  </path>
+                                </g>
+                              );
+                            })}
+                            
+                            <circle cx="400" cy="200" r="140" className={styles.radarRing} />
+                            <circle cx="400" cy="200" r="80" className={styles.radarRing} style={{ opacity: 0.3 }} />
+                            <g className={styles.radarSweep}>
+                              <line x1="400" y1="200" x2="400" y2="60" stroke="#3b82f6" strokeWidth="2" strokeLinecap="round" />
+                              <path d="M400,200 L400,60 A140,140 0 0,1 520,130 Z" fill="rgba(59,130,246,0.1)" />
+                            </g>
                           </svg>
-                          <div className={styles.routeLabel}>Active Operations: Worldwide</div>
+                          
+                          <div className={styles.routeLabel}>
+                            <span className={styles.liveIndicator} />
+                            System Live: Monitoring {airline.name} ({airline.icao}) Traffic
+                          </div>
                         </div>
                       </div>
                     </div>
