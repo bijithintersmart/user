@@ -95,8 +95,8 @@ export default function AirQualityPage() {
   return (
     <div className={styles.container}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Air Quality Text</h1>
-        <p className={styles.subtitle}>Check real-time air pollution data for any location.</p>
+        <h1 className={styles.title}>Air Quality Dashboard</h1>
+        <p className={styles.subtitle}>Real-time air pollution data and pollution levels for your location.</p>
       </header>
       
       <div className={styles.searchContainer}>
@@ -131,7 +131,7 @@ export default function AirQualityPage() {
 
       {data && !loading && (
         <div className={styles.resultsContainer}>
-          <div className={styles.mainCard} style={{ borderColor: getAQIStatus(data.overall_aqi).color }}>
+          <div className={styles.mainCard} style={{ borderLeftColor: getAQIStatus(data.overall_aqi).color }}>
             <div className={styles.aqiInfo}>
               <h2>Overall AQI</h2>
               <div 
@@ -148,7 +148,7 @@ export default function AirQualityPage() {
               </div>
             </div>
             <div className={styles.locationInfo}>
-              <div className={styles.locationName}>{locationName.charAt(0).toUpperCase() + locationName.slice(1)}</div>
+              <div className={styles.locationName}>{locationName}</div>
               <p style={{ color: '#6b7280', marginTop: '0.5rem' }}>Real-time Air Quality Index</p>
             </div>
           </div>
@@ -159,12 +159,23 @@ export default function AirQualityPage() {
               // Safety check: ensure the value is an object with concentration
               if (!value || typeof value !== 'object' || !value.concentration) return null;
               
+              const pollutantMeta = {
+                'CO': { name: 'Carbon Monoxide', unit: 'µg/m³' },
+                'NO2': { name: 'Nitrogen Dioxide', unit: 'ppb' },
+                'O3': { name: 'Ozone', unit: 'ppb' },
+                'SO2': { name: 'Sulfur Dioxide', unit: 'ppb' },
+                'PM2.5': { name: 'Particulate Matter 2.5', unit: 'µg/m³' },
+                'PM10': { name: 'Particulate Matter 10', unit: 'µg/m³' }
+              };
+
+              const meta = pollutantMeta[key] || { name: key, unit: 'µg/m³' };
               const status = getAQIStatus(value.aqi);
+              
               return (
-                <div key={key} className={styles.pollutantCard}>
+                <div key={key} className={styles.pollutantCard} style={{ borderTopColor: status.color }}>
                   <div className={styles.pollutantHeader}>
-                    <span className={styles.pollutantName}>{key}</span>
-                    <span className={styles.pollutantValue}>{value.concentration} µg/m³</span>
+                    <span className={styles.pollutantName}>{meta.name}</span>
+                    <span className={styles.pollutantValue}>{value.concentration} {meta.unit}</span>
                   </div>
                   <div className={styles.pollutantAqi} style={{ color: status.color }}>
                     {value.aqi}

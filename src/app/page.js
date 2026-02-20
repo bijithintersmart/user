@@ -42,6 +42,7 @@ export default function Home() {
             <AddButton path={"/riddles"} title={"Riddles"} />
             <AddButton path={"/sudoku"} title={"Sudoku"} />
             <AddButton path={"/air-quality"} title={"Air Quality"} />
+            <AddButton path={"/qrcode"} title={"QR Code"} />
             <AddButton path={"/state"} title={"State"} />
           </div>
           <div className={styles.dropdownContainer}>

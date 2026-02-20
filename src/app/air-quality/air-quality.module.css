@@ -170,8 +170,11 @@
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 2rem;
-  border-left: 8px solid; /* Color will be set inline based on AQI */
-  border: 1px solid #e5e7eb;
+  border-left: 10px solid transparent;
+    /* Color will be set inline based on AQI */
+    border-top: 1px solid #e5e7eb;
+    border-right: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
 }
 
 @media (prefers-color-scheme: dark) {
