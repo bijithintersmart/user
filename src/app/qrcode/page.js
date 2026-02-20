@@ -99,7 +99,7 @@ export default function QRCodePage() {
           <div className={styles.controls}>
             {/* Input */}
             <section className={styles.section}>
-              <label className={styles.label}>🔗 Data / URL</label>
+              <label className={styles.label}>URL</label>
               <textarea
                 className={styles.textarea}
                 placeholder="Enter a URL, text, contact, or anything…"
@@ -119,7 +119,7 @@ export default function QRCodePage() {
 
             {/* Size */}
             <section className={styles.section}>
-              <label className={styles.label}>📐 Size: <strong>{size}px</strong></label>
+              <label className={styles.label}>Size: <strong>{size}px</strong></label>
               <div className={styles.sizeGrid}>
                 {SIZE_OPTIONS.map((s) => (
                   <button
@@ -280,7 +280,7 @@ export default function QRCodePage() {
                     <span style={{ color: `#${bgColor}`, textShadow: "0 0 1px #888" }}>●</span>
                   </div>
                   <button className={styles.downloadBtn} onClick={download}>
-                    ⬇ Download PNG
+                    Download PNG
                   </button>
                 </div>
               )}
