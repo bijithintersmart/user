@@ -58,10 +58,15 @@ export default function QRCodePage() {
 
   const download = () => {
     if (!qrUrl) return;
-    const a = document.createElement("a");
+    // Derive a clean, filesystem-safe name from the input data
+    const slug = inputData.trim().replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 40) || 'qrcode';
+    const filename = `qrcode_${slug}.png`;
+    const a = document.createElement('a');
     a.href = qrUrl;
-    a.download = "qrcode.png";
+    a.download = filename;
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
   };
 
   const applyPreset = (preset) => {
