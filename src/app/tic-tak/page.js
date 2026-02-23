@@ -5,6 +5,7 @@ import Board from "./components/Board";
 import GameModeSelector from "./components/GameModeSelector";
 import styles from "./page.module.css";
 import { ToastContainer } from "react-toastify";
+import BackButton from "@/components/BackButton";
 
 export default function Game() {
   const history = useGameStore((state) => state.history);
@@ -33,6 +34,7 @@ export default function Game() {
 
   return (
     <div className={styles.gameContainer}>
+      <BackButton />
       <div className={styles.gameHeader}>
         <h1>Tic Tac Toe</h1>
         <GameModeSelector

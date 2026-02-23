@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback, useRef } from "react";
 import styles from "./qrcode.module.css";
+import BackButton from "@/components/BackButton";
 
 const PRESETS = [
   { label: "Classic", fg: "000000", bg: "ffffff" },
@@ -76,6 +77,7 @@ export default function QRCodePage() {
 
   return (
     <div className={styles.page}>
+      <BackButton />
       <div className={styles.container}>
         {/* Header */}
         <header className={styles.header}>

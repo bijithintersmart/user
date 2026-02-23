@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "@/app/page.module.css";
+import BackButton from "@/components/BackButton";
 
 // Custom hook to detect client-side
 function useIsClient() {
@@ -86,6 +87,7 @@ export default function RiddlesPage() {
 
   return (
     <div className={styles.page}>
+      <BackButton />
       <main className={styles.main}>
         <div className={styles.intro}>
           <h1>Riddle Challenge</h1>

@@ -2,6 +2,7 @@
 "use client";
 import { useState, useEffect, useCallback } from 'react';
 import styles from './air-quality.module.css';
+import BackButton from '@/components/BackButton';
 
 export default function AirQualityPage() {
   const [city, setCity] = useState('');
@@ -94,6 +95,7 @@ export default function AirQualityPage() {
 
   return (
     <div className={styles.container}>
+      <BackButton />
       <header className={styles.header}>
         <h1 className={styles.title}>Air Quality Dashboard</h1>
         <p className={styles.subtitle}>Real-time air pollution data and pollution levels for your location.</p>

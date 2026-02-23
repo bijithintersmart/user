@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import styles from "./barcode.module.css";
+import BackButton from "@/components/BackButton";
 
 const BARCODE_TYPES = [
   {
@@ -119,6 +120,7 @@ export default function BarcodePage() {
 
   return (
     <div className={styles.page}>
+      <BackButton />
       <div className={styles.container}>
         {/* Header */}
         <header className={styles.header}>

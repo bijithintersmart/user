@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback } from "react";
 import styles from "./airlines.module.css";
+import BackButton from "@/components/BackButton";
 
 export default function AirlineShowcase() {
   const [query, setQuery] = useState("");
@@ -41,6 +42,7 @@ export default function AirlineShowcase() {
 
   return (
     <div className={styles.page}>
+      <BackButton />
       <div className={styles.container}>
         <header className={styles.header}>
           <div className={styles.headerIcon}>

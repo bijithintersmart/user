@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from "react";
 import sudokuStyles from "./sudoku.module.css";
 import SudokuBoard from "./components/SudokuBoard";
 import Controls from "./components/Controls";
+import BackButton from "@/components/BackButton";
 
 // Pure utility functions defined outside component to avoid hoisting/initialization issues
 const isBoardFull = (currentBoard) => {
@@ -343,6 +344,7 @@ export default function SudokuPage() {
 
   return (
     <div className={sudokuStyles.sudokuContainer}>
+      <BackButton />
       <h1 className={sudokuStyles.title}>Sudoku Puzzle</h1>
       <p className={sudokuStyles.subtitle}>
         Challenge yourself with a Sudoku puzzle. Select difficulty and try to

@@ -5,6 +5,7 @@ import { useState } from "react";
 import ViewSubmittedForm from "./components/ViewForm";
 import AlertDialog from "./components/AleartDialog";
 import { FormInputBuilder, FormDropDownBuilder } from "./components/FormComponents";
+import BackButton from "@/components/BackButton";
 export default function FormSection() {
   const [fromMap, setFormMap] = useState(null);
 
@@ -60,6 +61,7 @@ export default function FormSection() {
   return (
     <>
       <div className={styles.page}>
+        <BackButton />
         <main className={styles.main}>
           <div className={styles.intro}>
             <h2>
