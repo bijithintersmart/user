@@ -45,6 +45,7 @@ export default function Home() {
             <AddButton path={"/qrcode"} title={"QR Code"} />
             <AddButton path={"/barcode"} title={"Barcode"} />
             <AddButton path={"/airlines"} title={"Airlines"} />
+            <AddButton path={"/password"} title={"Password"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder
