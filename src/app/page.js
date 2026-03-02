@@ -46,6 +46,7 @@ export default function Home() {
             <AddButton path={"/barcode"} title={"Barcode"} />
             <AddButton path={"/airlines"} title={"Airlines"} />
             <AddButton path={"/password"} title={"Password"} />
+            <AddButton path={"/url-lookup"} title={"URL Lookup"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder
