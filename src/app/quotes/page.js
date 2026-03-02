@@ -41,23 +41,28 @@ export default function QuotesPage() {
     setIsDiscoveryMode(false);
     
     try {
-      const randomCategory = ALL_CATEGORIES[Math.floor(Math.random() * ALL_CATEGORIES.length)];
-      const response = await fetch(`https://api.api-ninjas.com/v1/quotes?category=${randomCategory}`, {
+      // Removing category filter to ensure the request is successful on the free tier
+      const response = await fetch(`https://api.api-ninjas.com/v1/quotes`, {
         headers: {
           'X-Api-Key': process.env.NEXT_PUBLIC_API_NINJA_KEY
         }
       });
       
       if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `API error: ${response.status}`);
       }
       
       const data = await response.json();
       
       if (Array.isArray(data) && data.length > 0) {
         const selectedQuote = data[0];
-        setQuote(selectedQuote);
         
+        if (!selectedQuote || !selectedQuote.quote) {
+          throw new Error("No quote text found in the response.");
+        }
+
+        setQuote(selectedQuote);
         const allWords = selectedQuote.quote.split(/\s+/);
         setWords(allWords);
         
