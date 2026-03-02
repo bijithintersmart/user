@@ -131,7 +131,7 @@ export default function ObjectDetectionPage() {
               <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>Analyze animals, vehicles, furniture & more</span>
             </div>
           ) : (
-            <div className={styles.previewContainer}>
+            <div className={`${styles.previewContainer} ${hoveredIndex !== null ? styles.focusMode : ''}`}>
               <img 
                 ref={imageRef}
                 src={previewUrl} 

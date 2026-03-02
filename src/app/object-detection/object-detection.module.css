@@ -105,10 +105,19 @@
   border: 1px solid #fbbf24;
   background: rgba(251, 191, 36, 0.05);
   pointer-events: auto;
-    transition: all 0.2s ease-out;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 5;
   cursor: pointer;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+    visibility: visible;
+  }
+  
+  /* Clear Focus Mode: Hide other markers when one is highlighted */
+  .focusMode .objectBox {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .objectBox:hover {
@@ -120,6 +129,9 @@
 }
 .highlightedBox {
   z-index: 100 !important;
+  opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
   border: 2px solid #00f2ff !important;
   background: rgba(0, 242, 255, 0.2) !important;
   box-shadow: 0 0 30px rgba(0, 242, 255, 0.6) !important;

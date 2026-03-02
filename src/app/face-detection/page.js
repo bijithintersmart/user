@@ -11,6 +11,7 @@ export default function FaceDetectionPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [scale, setScale] = useState({ x: 1, y: 1 });
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   
   const imageRef = useRef(null);
   const fileInputRef = useRef(null);
@@ -120,7 +121,7 @@ export default function FaceDetectionPage() {
             <span style={{ fontSize: '0.8rem', color: '#6b7280' }}>JPG, PNG or JPEG</span>
           </div>
         ) : (
-          <div className={styles.previewContainer}>
+          <div className={`${styles.previewContainer} ${hoveredIndex !== null ? styles.focusMode : ''}`}>
             <img 
               ref={imageRef}
               src={previewUrl} 
@@ -131,7 +132,9 @@ export default function FaceDetectionPage() {
             {faces.map((f, i) => (
               <div 
                 key={i} 
-                className={styles.faceMarker}
+                className={`${styles.faceMarker} ${hoveredIndex === i ? styles.highlightedBox : ''}`}
+                onMouseEnter={() => setHoveredIndex(i)}
+                onMouseLeave={() => setHoveredIndex(null)}
                 style={{
                   left: `${f.x * scale.x}px`,
                   top: `${f.y * scale.y}px`,
