@@ -50,6 +50,7 @@ export default function Home() {
             <AddButton path={"/animals"} title={"Animals"} />
             <AddButton path={"/face-detection"} title={"Face Detection"} />
             <AddButton path={"/object-detection"} title={"Object Detection"} />
+            <AddButton path={"/blog"} title={"Blogs"} />
           </div>
           <div className={styles.dropdownContainer}>
             <FormDropDownBuilder
