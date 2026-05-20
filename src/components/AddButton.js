@@ -1,23 +1,24 @@
 "use client";
 import styles from "../app/page.module.css";
 import { v4 as uuidv4 } from "uuid";
-import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function AddButton({ path, title }) {
-  const [uuid, setUuid] = useState("");
+  const router = useRouter();
 
-  useEffect(() => {
-    setUuid(uuidv4());
-  }, []);
+  const handleClick = () => {
+    if (path) {
+      router.push(path);
+    } else {
+      router.push(`/user/${uuidv4()}`);
+    }
+  };
 
   return (
     <div>
-      <a
-        href={path ? path : `/user/${uuid || "loading"}`}
-        className={styles.buttonclass}
-      >
+      <button onClick={handleClick} className={styles.buttonclass}>
         {title ? title : "RANDOM USER"}
-      </a>
+      </button>
     </div>
   );
 }

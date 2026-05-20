@@ -91,7 +91,7 @@ function AnimalDetailContent() {
 
         {data.characteristics.slogan && (
           <div className={styles.slogan}>
-            "{data.characteristics.slogan}"
+            &quot;{data.characteristics.slogan}&quot;
           </div>
         )}
 

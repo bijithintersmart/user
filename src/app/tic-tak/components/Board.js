@@ -1,6 +1,6 @@
 import Square from "./square";
 import styles from "./Board.module.css";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { toast, Slide } from "react-toastify";
 
 export default function Board({
@@ -17,17 +17,16 @@ export default function Board({
   const player = xIsNext ? "X" : "O";
   const status = calculateStatus(winner, turns, player);
 
-  function handleClick(i) {
+  const handleClick = useCallback((i) => {
     if (squares[i] || winner) return;
     const nextSquares = squares.slice();
     nextSquares[i] = player;
     onPlay(nextSquares);
-  }
+  }, [squares, winner, player, onPlay]);
 
-  function pickARandomSpot() {
+  const pickARandomSpot = useCallback(() => {
     const emptyItems = [];
     for (let i = 0; i < squares.length; i++) {
-      console.log(typeof squares[i]);
       if (squares[i] == null) {
         emptyItems.push(i);
       }
@@ -35,7 +34,7 @@ export default function Board({
     if (emptyItems.length === 0) return null;
     const randomIndex = Math.floor(Math.random() * emptyItems.length);
     handleClick(emptyItems[randomIndex]);
-  }
+  }, [squares, handleClick]);
 
   function disableUserInteraction() {
     toast.error("🤔Please wait computer is thinking!", {
@@ -52,12 +51,13 @@ export default function Board({
   }
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       if (autoPlay && !xIsNext) {
         pickARandomSpot();
       }
     }, 3000);
-  }, squares);
+    return () => clearTimeout(timer);
+  }, [squares, autoPlay, xIsNext, pickARandomSpot]);
 
   return (
     <div className={styles.boardContainer}>
@@ -120,7 +120,7 @@ export default function Board({
       )}
       {!winner && !turns && (
         <div className={styles.drawAnnouncement}>
-          🤝 It's a draw! 🤝
+          🤝 It&apos;s a draw! 🤝
           <div className={styles.winnerButtonGroup}>
             <button className={styles.restartButton} onClick={onRestart}>
               Restart Game

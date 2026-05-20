@@ -3,15 +3,6 @@ import getImage from "@/utils/utils";
 import styles from "@/app/page.module.css";
 
 export default function ViewSubmittedForm({ fromMap, onBack }) {
-  function generateRandomWithType(min = 1, max = 1000) {
-    const number = Math.floor(Math.random() * (max - min + 1)) + min;
-
-    return {
-      number,
-      type: number % 2 === 0 ? "Even" : "Odd",
-    };
-  }
-  const { number, type } = generateRandomWithType();
   console.log(fromMap.color);
   return (
     <div className={styles.userDetailsContainer}>

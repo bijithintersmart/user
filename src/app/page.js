@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import styles from "./page.module.css";
 import UserList from "@/components/userList";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -8,15 +8,16 @@ import AddButton from "@/components/AddButton";
 import FormDropDownBuilder from "@/components/FormDropDownBuilder";
 
 export default function Home() {
-  const [imageType, setImageType] = useState("Identicon");
-
-  useEffect(() => {
-    const savedImageType = localStorage.getItem("imageType") || "Identicon";
-    setImageType(savedImageType);
-  }, []);
+  const imageType = useSyncExternalStore(
+    (callback) => {
+      window.addEventListener("storage", callback);
+      return () => window.removeEventListener("storage", callback);
+    },
+    () => localStorage.getItem("imageType") || "Identicon",
+    () => "Identicon"
+  );
 
   const handleImageTypeChange = (id, val) => {
-    setImageType(val);
     localStorage.setItem("imageType", val);
     window.dispatchEvent(new Event("storage"));
   };
@@ -45,6 +46,7 @@ export default function Home() {
             <AddButton path={"/qrcode"} title={"QR Code"} />
             <AddButton path={"/barcode"} title={"Barcode"} />
             <AddButton path={"/airlines"} title={"Airlines"} />
+            <AddButton path={"/flights"} title={"Flight Tracking"} />
             <AddButton path={"/password"} title={"Password"} />
             <AddButton path={"/url-lookup"} title={"URL Lookup"} />
             <AddButton path={"/animals"} title={"Animals"} />
