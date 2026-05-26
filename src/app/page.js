@@ -49,6 +49,7 @@ export default function Home() {
             <AddButton path={"/flights"} title={"Flight Tracking"} />
             <AddButton path={"/password"} title={"Password"} />
             <AddButton path={"/url-lookup"} title={"URL Lookup"} />
+            <AddButton path={"/ip-lookup"} title={"IP Lookup"} />
             <AddButton path={"/animals"} title={"Animals"} />
             <AddButton path={"/face-detection"} title={"Face Detection"} />
             <AddButton path={"/object-detection"} title={"Object Detection"} />
